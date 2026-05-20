@@ -720,6 +720,19 @@ extern "c" fn generate_vertex_remap_custom_no_callback_ffi(
 ) -> Int = "moonbit_meshopt_generate_vertex_remap_custom_no_callback"
 
 ///|
+#borrow(destination, indices, positions)
+extern "c" fn generate_vertex_remap_custom_ffi(
+  destination : FixedArray[UInt],
+  indices : FixedArray[UInt],
+  index_count : Int,
+  positions : FixedArray[Float],
+  vertex_count : Int,
+  positions_stride : Int,
+  call_closure : FuncRef[((UInt, UInt) -> Bool, UInt, UInt) -> Int],
+  closure : (UInt, UInt) -> Bool,
+) -> Int = "moonbit_meshopt_generate_vertex_remap_custom"
+
+///|
 extern "c" fn encode_meshlet_bound_ffi(
   max_vertices : Int,
   max_triangles : Int,

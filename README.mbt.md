@@ -8,6 +8,7 @@ public C API groups:
 
 - quantization helpers
 - vertex remap, multi-stream remap, shadow remap, and remap application
+- custom vertex remap callbacks through a MoonBit closure trampoline
 - vertex cache, overdraw, and vertex fetch optimization
 - index, index sequence, vertex, filter, and meshlet codecs
 - stripification and unstripification
@@ -44,16 +45,12 @@ the vendored allocator source. This keeps the package buildable through
 MoonBit native stubs without requiring downstream users to add C++ runtime
 linker flags.
 
-Two upstream escape hatches are intentionally not exposed as ordinary safe
-MoonBit APIs:
+One upstream escape hatch is intentionally not exposed as an ordinary safe
+MoonBit API:
 
 - `meshopt_setAllocator`: allocation is fixed to the package's native stub
   allocator so consumers do not need to manage a process-wide C++ allocator
   callback.
-- `meshopt_generateVertexRemapCustom` with a callback: the package exposes
-  `generate_vertex_remap_custom_no_callback` for the default equality behavior.
-  A MoonBit callback ABI wrapper can be added later as a separate unsafe or
-  callback-specific API.
 
 ## Development
 

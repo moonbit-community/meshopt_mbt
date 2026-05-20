@@ -864,6 +864,19 @@ extern "C" MOONBIT_FFI_EXPORT int32_t moonbit_meshopt_generate_vertex_remap_cust
 	return (int32_t)meshopt_generateVertexRemapCustom(destination, 0, to_size(vertex_count), positions, to_size(vertex_count), to_size(positions_stride), 0, 0);
 }
 
+extern "C" MOONBIT_FFI_EXPORT int32_t moonbit_meshopt_generate_vertex_remap_custom(
+	unsigned int* destination,
+	const unsigned int* indices,
+	int32_t index_count,
+	const float* positions,
+	int32_t vertex_count,
+	int32_t positions_stride,
+	int32_t (*callback)(void*, unsigned int, unsigned int),
+	void* context)
+{
+	return (int32_t)meshopt_generateVertexRemapCustom(destination, indices, to_size(index_count), positions, to_size(vertex_count), to_size(positions_stride), callback, context);
+}
+
 extern "C" MOONBIT_FFI_EXPORT int32_t moonbit_meshopt_encode_meshlet_bound(int32_t max_vertices, int32_t max_triangles)
 {
 	return (int32_t)meshopt_encodeMeshletBound(to_size(max_vertices), to_size(max_triangles));

@@ -269,6 +269,21 @@ test "filters opacity and packed stream helpers expose native functions" {
   )
   assert_eq(unique_count, 3)
   assert_true(remap == [0U, 1U, 0U, 2U])
+  let custom_positions : FixedArray[Float] = [
+    0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 0.0F, 0.0F,
+  ]
+  let (custom_remap, custom_unique_count) = try! @meshopt_mbt.generate_vertex_remap_custom(
+    [0U, 1U, 2U, 3U],
+    custom_positions,
+    4,
+    12,
+    fn(a, b) {
+      custom_positions[a.reinterpret_as_int() * 3] ==
+      custom_positions[b.reinterpret_as_int() * 3]
+    },
+  )
+  assert_eq(custom_unique_count, 3)
+  assert_true(custom_remap == [0U, 1U, 0U, 2U])
 
   assert_true((try! @meshopt_mbt.opacity_map_entry_size(1, 2)) > 0)
   let raster = try! @meshopt_mbt.opacity_map_rasterize(

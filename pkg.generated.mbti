@@ -106,6 +106,8 @@ pub fn generate_tangents(FixedArray[UInt], FixedArray[Float], Int, Int, FixedArr
 
 pub fn generate_tessellation_index_buffer(FixedArray[UInt], FixedArray[Float], Int, Int) -> FixedArray[UInt] raise MeshoptError
 
+pub fn generate_vertex_remap_custom(FixedArray[UInt], FixedArray[Float], Int, Int, (UInt, UInt) -> Bool) -> (FixedArray[UInt], Int) raise MeshoptError
+
 pub fn generate_vertex_remap_custom_no_callback(FixedArray[Float], Int, Int) -> (FixedArray[UInt], Int) raise MeshoptError
 
 pub fn generate_vertex_remap_indexed(FixedArray[UInt], Bytes, Int, Int) -> (FixedArray[UInt], Int) raise MeshoptError

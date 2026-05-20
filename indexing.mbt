@@ -308,3 +308,37 @@ pub fn generate_vertex_remap_custom_no_callback(
   )
   (remap, unique_vertex_count)
 }
+
+///|
+pub fn generate_vertex_remap_custom(
+  indices : FixedArray[UInt],
+  positions : FixedArray[Float],
+  vertex_count : Int,
+  positions_stride : Int,
+  callback : (UInt, UInt) -> Bool,
+) -> (FixedArray[UInt], Int) raise MeshoptError {
+  require_float_stream(
+    positions, vertex_count, positions_stride, 12, "positions",
+  )
+  if indices.length() > 0 {
+    let vertex_count_u = vertex_count.reinterpret_as_uint()
+    for i in 0..<indices.length() {
+      require(
+        indices[i] < vertex_count_u,
+        "indices reference vertices outside the position stream",
+      )
+    }
+  }
+  let remap = FixedArray::make(vertex_count, 0U)
+  let unique_vertex_count = generate_vertex_remap_custom_ffi(
+    remap,
+    indices,
+    indices.length(),
+    positions,
+    vertex_count,
+    positions_stride,
+    fn(compare, a, b) { if compare(a, b) { 1 } else { 0 } },
+    callback,
+  )
+  (remap, unique_vertex_count)
+}

@@ -11,5 +11,6 @@
     "ffi"
   ],
   "description": "MoonBit bindings for meshoptimizer",
-  "preferred-target": "native"
+  "preferred-target": "native",
+  "supported-targets": "native"
 }

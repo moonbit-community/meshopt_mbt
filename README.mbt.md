@@ -123,10 +123,27 @@ MoonBit API:
 Run:
 
 ```bash
+moon fmt --check
+moon check --target native --warn-list +73
 moon test --target native
 moon info
 moon fmt
 ```
+
+The test suite includes README doctests, API smoke tests, and a cube mesh
+fixture that exercises codecs, optimization, simplification, meshlets, bounds,
+and stripification on a realistic indexed mesh.
+
+For native memory-safety smoke testing, run:
+
+```bash
+scripts/asan-smoke.sh
+```
+
+This compiles the native wrapper and vendored meshoptimizer sources with
+AddressSanitizer and UndefinedBehaviorSanitizer, then executes representative
+wrapper calls. CI runs native MoonBit tests on Linux and macOS, plus the
+sanitizer smoke test on Linux.
 
 Further binding work should follow the same pattern: keep raw FFI declarations
 private, mediate ABI details in the native wrapper when needed, and expose

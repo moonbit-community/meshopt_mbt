@@ -1,0 +1,85 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/meshopt_mbt"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn analyze_vertex_cache(FixedArray[UInt], Int, cache_size? : UInt, warp_size? : UInt, primgroup_size? : UInt) -> VertexCacheStatistics raise MeshoptError
+
+pub fn analyze_vertex_fetch(FixedArray[UInt], Int, Int) -> VertexFetchStatistics raise MeshoptError
+
+pub fn decode_index_buffer(Bytes, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn decode_vertex_buffer(Bytes, Int, Int) -> Bytes raise MeshoptError
+
+pub fn dequantize_half(UInt) -> Float
+
+pub fn encode_index_buffer(FixedArray[UInt], Int) -> MeshoptData raise MeshoptError
+
+pub fn encode_index_buffer_bound(Int, Int) -> Int raise MeshoptError
+
+pub fn encode_vertex_buffer(Bytes, Int, Int) -> MeshoptData raise MeshoptError
+
+pub fn encode_vertex_buffer_bound(Int, Int) -> Int raise MeshoptError
+
+pub fn generate_vertex_remap_indexed(FixedArray[UInt], Bytes, Int, Int) -> (FixedArray[UInt], Int) raise MeshoptError
+
+pub fn generate_vertex_remap_unindexed(Bytes, Int, Int) -> (FixedArray[UInt], Int) raise MeshoptError
+
+pub fn optimize_vertex_cache(FixedArray[UInt], Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn optimize_vertex_cache_fifo(FixedArray[UInt], Int, cache_size? : UInt) -> FixedArray[UInt] raise MeshoptError
+
+pub fn optimize_vertex_cache_strip(FixedArray[UInt], Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn optimize_vertex_fetch_remap(FixedArray[UInt], Int) -> (FixedArray[UInt], Int) raise MeshoptError
+
+pub fn quantize_float(Float, Int) -> Float raise MeshoptError
+
+pub fn quantize_half(Float) -> UInt
+
+pub fn quantize_snorm(Float, Int) -> Int raise MeshoptError
+
+pub fn quantize_unorm(Float, Int) -> Int raise MeshoptError
+
+pub fn remap_index_buffer_indexed(FixedArray[UInt], FixedArray[UInt]) -> FixedArray[UInt] raise MeshoptError
+
+pub fn remap_index_buffer_unindexed(Int, FixedArray[UInt]) -> FixedArray[UInt] raise MeshoptError
+
+pub fn remap_vertex_buffer(Bytes, Int, Int, Int, FixedArray[UInt]) -> Bytes raise MeshoptError
+
+pub let version : Int
+
+// Errors
+pub suberror MeshoptError {
+  MeshoptError(String)
+} derive(Eq, @debug.Debug)
+
+// Types and methods
+pub struct MeshoptData {
+  data : Bytes
+  length : Int
+} derive(Eq, @debug.Debug)
+
+pub struct SimplifyOptions(UInt) derive(Eq, @debug.Debug)
+pub fn SimplifyOptions::bits(Self) -> UInt
+pub fn SimplifyOptions::new(lock_border? : Bool, sparse? : Bool, error_absolute? : Bool, prune? : Bool, regularize? : Bool, permissive? : Bool, regularize_light? : Bool) -> Self
+
+pub struct VertexCacheStatistics {
+  vertices_transformed : UInt
+  warps_executed : UInt
+  acmr : Float
+  atvr : Float
+} derive(Eq, @debug.Debug)
+
+pub struct VertexFetchStatistics {
+  bytes_fetched : UInt
+  overfetch : Float
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
+

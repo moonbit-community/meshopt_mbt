@@ -1,0 +1,15 @@
+{
+  "name": "moonbit-community/meshopt_mbt",
+  "version": "0.1.0",
+  "readme": "README.mbt.md",
+  "repository": "https://github.com/moonbit-community/meshopt_mbt.git",
+  "license": "Apache-2.0",
+  "keywords": [
+    "mesh",
+    "meshoptimizer",
+    "graphics",
+    "ffi"
+  ],
+  "description": "MoonBit bindings for meshoptimizer",
+  "preferred-target": "native"
+}

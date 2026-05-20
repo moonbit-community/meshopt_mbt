@@ -1,0 +1,7 @@
+// import {
+//   "moonbit-community/meshopt_mbt" @meshopt_mbt,
+// }
+
+options(
+  "is-main": true,
+)

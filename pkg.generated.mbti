@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "moonbit-community/meshopt_mbt"
+package "Milky2018/meshopt_mbt"
 
 import {
   "moonbitlang/core/debug",

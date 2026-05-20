@@ -1,4 +1,4 @@
-# moonbit-community/meshopt_mbt
+# Milky2018/meshopt_mbt
 
 MoonBit native bindings for [meshoptimizer](https://github.com/zeux/meshoptimizer).
 
@@ -19,6 +19,10 @@ public C API groups:
 
 The package targets MoonBit's native backend.
 
+## Examples
+
+### Index Codec
+
 ```mbt check
 ///|
 test {
@@ -29,6 +33,68 @@ test {
     indices.length(),
   )
   assert_true(decoded == indices)
+}
+```
+
+### Vertex Remap
+
+```mbt check
+///|
+test {
+  let vertices = Bytes::makei(4, i => {
+    match i {
+      0 => b'\x01'
+      1 => b'\x02'
+      2 => b'\x01'
+      _ => b'\x03'
+    }
+  })
+  let (remap, unique_count) = try! @meshopt_mbt.generate_vertex_remap_unindexed(
+    vertices, 4, 1,
+  )
+  assert_eq(unique_count, 3)
+  assert_true(remap == [0U, 1U, 0U, 2U])
+  let compacted = try! @meshopt_mbt.remap_vertex_buffer(
+    vertices, 4, 1, unique_count, remap,
+  )
+  assert_eq(compacted.length(), 3)
+}
+```
+
+### Optimization And Analysis
+
+```mbt check
+///|
+test {
+  let indices : FixedArray[UInt] = [0U, 1U, 2U, 2U, 1U, 3U]
+  let optimized = try! @meshopt_mbt.optimize_vertex_cache(indices, 4)
+  assert_eq(optimized.length(), indices.length())
+
+  let stats = try! @meshopt_mbt.analyze_vertex_cache(optimized, 4)
+  assert_true(stats.vertices_transformed >= 4U)
+  assert_true(stats.acmr > 0.0F)
+}
+```
+
+### Meshlets And Bounds
+
+```mbt check
+///|
+test {
+  let indices : FixedArray[UInt] = [0U, 1U, 2U, 2U, 1U, 3U]
+  let positions : FixedArray[Float] = [
+    0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F,
+  ]
+
+  let meshlets = try! @meshopt_mbt.build_meshlets(
+    indices, positions, 4, 12, 64, 64,
+  )
+  assert_true(meshlets.meshlet_count > 0)
+
+  let bounds = try! @meshopt_mbt.compute_cluster_bounds(
+    indices, positions, 4, 12,
+  )
+  assert_true(bounds.radius >= 0.0F)
 }
 ```
 

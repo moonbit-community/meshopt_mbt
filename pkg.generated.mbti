@@ -6,27 +6,129 @@ import {
 }
 
 // Values
+pub fn analyze_coverage(FixedArray[UInt], FixedArray[Float], Int, Int) -> CoverageStatistics raise MeshoptError
+
+pub fn analyze_overdraw(FixedArray[UInt], FixedArray[Float], Int, Int) -> OverdrawStatistics raise MeshoptError
+
 pub fn analyze_vertex_cache(FixedArray[UInt], Int, cache_size? : UInt, warp_size? : UInt, primgroup_size? : UInt) -> VertexCacheStatistics raise MeshoptError
 
 pub fn analyze_vertex_fetch(FixedArray[UInt], Int, Int) -> VertexFetchStatistics raise MeshoptError
 
+pub fn build_meshlets(FixedArray[UInt], FixedArray[Float], Int, Int, Int, Int, cone_weight? : Float) -> MeshletBuild raise MeshoptError
+
+pub fn build_meshlets_bound(Int, Int, Int) -> Int raise MeshoptError
+
+pub fn build_meshlets_flex(FixedArray[UInt], FixedArray[Float], Int, Int, Int, Int, Int, cone_weight? : Float, split_factor? : Float) -> MeshletBuild raise MeshoptError
+
+pub fn build_meshlets_scan(FixedArray[UInt], Int, Int, Int) -> MeshletBuild raise MeshoptError
+
+pub fn build_meshlets_spatial(FixedArray[UInt], FixedArray[Float], Int, Int, Int, Int, Int, fill_weight? : Float) -> MeshletBuild raise MeshoptError
+
+pub fn compute_cluster_bounds(FixedArray[UInt], FixedArray[Float], Int, Int) -> Bounds raise MeshoptError
+
+pub fn compute_meshlet_bounds(FixedArray[UInt], Bytes, Int, FixedArray[Float], Int, Int) -> Bounds raise MeshoptError
+
+pub fn compute_position_exponent(FixedArray[Float], FixedArray[Float], Int, Int) -> Int raise MeshoptError
+
+pub fn compute_sphere_bounds(FixedArray[Float], Int, Int, radii? : FixedArray[Float], radii_stride? : Int) -> Bounds raise MeshoptError
+
+pub fn decode_filter_color(Bytes, Int, Int) -> Bytes raise MeshoptError
+
+pub fn decode_filter_exp(Bytes, Int, Int) -> Bytes raise MeshoptError
+
+pub fn decode_filter_oct(Bytes, Int, Int) -> Bytes raise MeshoptError
+
+pub fn decode_filter_quat(Bytes, Int, Int) -> Bytes raise MeshoptError
+
 pub fn decode_index_buffer(Bytes, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn decode_index_buffer_bytes(Bytes, Int, Int) -> Bytes raise MeshoptError
+
+pub fn decode_index_sequence(Bytes, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn decode_index_sequence_bytes(Bytes, Int, Int) -> Bytes raise MeshoptError
+
+pub fn decode_index_version(Bytes) -> Int
+
+pub fn decode_meshlet(Bytes, Int, Int, Int, Int) -> MeshletDecode raise MeshoptError
+
+pub fn decode_meshlet_raw(Bytes, Int, Int) -> MeshletDecodeRaw raise MeshoptError
 
 pub fn decode_vertex_buffer(Bytes, Int, Int) -> Bytes raise MeshoptError
 
+pub fn decode_vertex_version(Bytes) -> Int
+
 pub fn dequantize_half(UInt) -> Float
+
+pub fn encode_filter_color(FixedArray[Float], Int, Int, Int) -> Bytes raise MeshoptError
+
+pub fn encode_filter_exp(FixedArray[Float], Int, Int, Int, mode? : EncodeExpMode) -> Bytes raise MeshoptError
+
+pub fn encode_filter_oct(FixedArray[Float], Int, Int, Int) -> Bytes raise MeshoptError
+
+pub fn encode_filter_quat(FixedArray[Float], Int, Int, Int) -> Bytes raise MeshoptError
 
 pub fn encode_index_buffer(FixedArray[UInt], Int) -> MeshoptData raise MeshoptError
 
 pub fn encode_index_buffer_bound(Int, Int) -> Int raise MeshoptError
 
+pub fn encode_index_sequence(FixedArray[UInt], Int) -> MeshoptData raise MeshoptError
+
+pub fn encode_index_sequence_bound(Int, Int) -> Int raise MeshoptError
+
+pub fn encode_index_version(Int) -> Unit raise MeshoptError
+
+pub fn encode_meshlet(FixedArray[UInt], Int, Bytes, Int) -> MeshoptData raise MeshoptError
+
+pub fn encode_meshlet_bound(Int, Int) -> Int raise MeshoptError
+
 pub fn encode_vertex_buffer(Bytes, Int, Int) -> MeshoptData raise MeshoptError
 
 pub fn encode_vertex_buffer_bound(Int, Int) -> Int raise MeshoptError
 
+pub fn encode_vertex_buffer_level(Bytes, Int, Int, Int, Int) -> MeshoptData raise MeshoptError
+
+pub fn encode_vertex_version(Int) -> Unit raise MeshoptError
+
+pub fn extract_meshlet_indices(FixedArray[UInt]) -> (FixedArray[UInt], Bytes, Int) raise MeshoptError
+
+pub fn generate_adjacency_index_buffer(FixedArray[UInt], FixedArray[Float], Int, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn generate_position_remap(FixedArray[Float], Int, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn generate_provoking_index_buffer(FixedArray[UInt], Int) -> ProvokingIndexBuffer raise MeshoptError
+
+pub fn generate_shadow_index_buffer(FixedArray[UInt], Bytes, Int, Int, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn generate_shadow_index_buffer_multi(FixedArray[UInt], PackedStreams, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn generate_tangents(FixedArray[UInt], FixedArray[Float], Int, Int, FixedArray[Float], Int, FixedArray[Float], Int, options? : TangentOptions) -> FixedArray[Float] raise MeshoptError
+
+pub fn generate_tessellation_index_buffer(FixedArray[UInt], FixedArray[Float], Int, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn generate_vertex_remap_custom_no_callback(FixedArray[Float], Int, Int) -> (FixedArray[UInt], Int) raise MeshoptError
+
 pub fn generate_vertex_remap_indexed(FixedArray[UInt], Bytes, Int, Int) -> (FixedArray[UInt], Int) raise MeshoptError
 
+pub fn generate_vertex_remap_multi_indexed(FixedArray[UInt], PackedStreams, Int) -> (FixedArray[UInt], Int) raise MeshoptError
+
+pub fn generate_vertex_remap_multi_unindexed(PackedStreams, Int) -> (FixedArray[UInt], Int) raise MeshoptError
+
 pub fn generate_vertex_remap_unindexed(Bytes, Int, Int) -> (FixedArray[UInt], Int) raise MeshoptError
+
+pub fn opacity_map_compact(Bytes, Bytes, FixedArray[UInt], Int, FixedArray[Int], Int, Int) -> Int raise MeshoptError
+
+pub fn opacity_map_entry_size(Int, Int) -> Int raise MeshoptError
+
+pub fn opacity_map_measure(FixedArray[UInt], FixedArray[Float], Int, Int, Int, Int, Int, Float) -> OpacityMapMeasure raise MeshoptError
+
+pub fn opacity_map_rasterize(Int, Int, FixedArray[Float], FixedArray[Float], FixedArray[Float], Bytes, Int, Int, Int, Int) -> Bytes raise MeshoptError
+
+pub fn optimize_meshlet(FixedArray[UInt], Bytes, Int, Int) -> Unit raise MeshoptError
+
+pub fn optimize_meshlet_level(FixedArray[UInt], Bytes, Int, Int, Int) -> Unit raise MeshoptError
+
+pub fn optimize_overdraw(FixedArray[UInt], FixedArray[Float], Int, Int, threshold? : Float) -> FixedArray[UInt] raise MeshoptError
 
 pub fn optimize_vertex_cache(FixedArray[UInt], Int) -> FixedArray[UInt] raise MeshoptError
 
@@ -34,7 +136,11 @@ pub fn optimize_vertex_cache_fifo(FixedArray[UInt], Int, cache_size? : UInt) -> 
 
 pub fn optimize_vertex_cache_strip(FixedArray[UInt], Int) -> FixedArray[UInt] raise MeshoptError
 
+pub fn optimize_vertex_fetch(FixedArray[UInt], Bytes, Int, Int) -> VertexFetchOptimization raise MeshoptError
+
 pub fn optimize_vertex_fetch_remap(FixedArray[UInt], Int) -> (FixedArray[UInt], Int) raise MeshoptError
+
+pub fn partition_clusters(FixedArray[UInt], FixedArray[UInt], FixedArray[Float], Int, Int, Int) -> (FixedArray[UInt], Int) raise MeshoptError
 
 pub fn quantize_float(Float, Int) -> Float raise MeshoptError
 
@@ -50,6 +156,34 @@ pub fn remap_index_buffer_unindexed(Int, FixedArray[UInt]) -> FixedArray[UInt] r
 
 pub fn remap_vertex_buffer(Bytes, Int, Int, Int, FixedArray[UInt]) -> Bytes raise MeshoptError
 
+pub fn simplify(FixedArray[UInt], FixedArray[Float], Int, Int, Int, Float, options? : SimplifyOptions) -> SimplifyResult raise MeshoptError
+
+pub fn simplify_points(FixedArray[Float], Int, Int, Int, colors? : FixedArray[Float], colors_stride? : Int, color_weight? : Float) -> (FixedArray[UInt], Int) raise MeshoptError
+
+pub fn simplify_prune(FixedArray[UInt], FixedArray[Float], Int, Int, Float) -> (FixedArray[UInt], Int) raise MeshoptError
+
+pub fn simplify_scale(FixedArray[Float], Int, Int) -> Float raise MeshoptError
+
+pub fn simplify_sloppy(FixedArray[UInt], FixedArray[Float], Int, Int, vertex_lock? : Bytes, Int, Float) -> SimplifyResult raise MeshoptError
+
+pub fn simplify_with_attributes(FixedArray[UInt], FixedArray[Float], Int, Int, FixedArray[Float], Int, FixedArray[Float], Int, vertex_lock? : Bytes, Int, Float, options? : SimplifyOptions) -> SimplifyResult raise MeshoptError
+
+pub fn simplify_with_update(FixedArray[UInt], FixedArray[Float], Int, Int, attributes? : FixedArray[Float], attributes_stride? : Int, weights? : FixedArray[Float], attribute_count? : Int, vertex_lock? : Bytes, Int, Float, options? : SimplifyOptions) -> (Int, Float) raise MeshoptError
+
+pub fn spatial_cluster_points(FixedArray[Float], Int, Int, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn spatial_sort_remap(FixedArray[Float], Int, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn spatial_sort_triangles(FixedArray[UInt], FixedArray[Float], Int, Int) -> FixedArray[UInt] raise MeshoptError
+
+pub fn stripify_bound(Int) -> Int raise MeshoptError
+
+pub fn stripify_indices(FixedArray[UInt], Int, restart_index? : UInt) -> (FixedArray[UInt], Int) raise MeshoptError
+
+pub fn unstripify_bound(Int) -> Int raise MeshoptError
+
+pub fn unstripify_indices(FixedArray[UInt], restart_index? : UInt) -> (FixedArray[UInt], Int) raise MeshoptError
+
 pub let version : Int
 
 // Errors
@@ -58,14 +192,101 @@ pub suberror MeshoptError {
 } derive(Eq, @debug.Debug)
 
 // Types and methods
+pub struct Bounds {
+  center_x : Float
+  center_y : Float
+  center_z : Float
+  radius : Float
+  cone_apex_x : Float
+  cone_apex_y : Float
+  cone_apex_z : Float
+  cone_axis_x : Float
+  cone_axis_y : Float
+  cone_axis_z : Float
+  cone_cutoff : Float
+  cone_axis_s8_x : Int
+  cone_axis_s8_y : Int
+  cone_axis_s8_z : Int
+  cone_cutoff_s8 : Int
+} derive(Eq, @debug.Debug)
+
+pub struct CoverageStatistics {
+  coverage_x : Float
+  coverage_y : Float
+  coverage_z : Float
+  extent : Float
+} derive(Eq, @debug.Debug)
+
+pub enum EncodeExpMode {
+  Separate
+  SharedVector
+  SharedComponent
+  Clamped
+} derive(Eq, @debug.Debug)
+
+pub struct MeshletBuild {
+  meshlets : FixedArray[UInt]
+  vertices : FixedArray[UInt]
+  triangles : Bytes
+  meshlet_count : Int
+} derive(Eq, @debug.Debug)
+
+pub struct MeshletDecode {
+  vertices : Bytes
+  triangles : Bytes
+} derive(Eq, @debug.Debug)
+
+pub struct MeshletDecodeRaw {
+  vertices : FixedArray[UInt]
+  triangles : FixedArray[UInt]
+} derive(Eq, @debug.Debug)
+
 pub struct MeshoptData {
   data : Bytes
   length : Int
 } derive(Eq, @debug.Debug)
 
+pub struct OpacityMapMeasure {
+  levels : Bytes
+  sources : FixedArray[UInt]
+  omm_indices : FixedArray[Int]
+  count : Int
+} derive(Eq, @debug.Debug)
+
+pub struct OverdrawStatistics {
+  pixels_covered : UInt
+  pixels_shaded : UInt
+  overdraw : Float
+} derive(Eq, @debug.Debug)
+
+pub struct PackedStreams {
+  source : Bytes
+  offsets : FixedArray[Int]
+  sizes : FixedArray[Int]
+  strides : FixedArray[Int]
+  stream_count : Int
+} derive(Eq, @debug.Debug)
+pub fn PackedStreams::new(Bytes, FixedArray[Int], FixedArray[Int], FixedArray[Int], Int) -> Self
+
+pub struct ProvokingIndexBuffer {
+  indices : FixedArray[UInt]
+  reorder : FixedArray[UInt]
+  reorder_count : Int
+} derive(Eq, @debug.Debug)
+
 pub struct SimplifyOptions(UInt) derive(Eq, @debug.Debug)
 pub fn SimplifyOptions::bits(Self) -> UInt
 pub fn SimplifyOptions::new(lock_border? : Bool, sparse? : Bool, error_absolute? : Bool, prune? : Bool, regularize? : Bool, permissive? : Bool, regularize_light? : Bool) -> Self
+
+pub struct SimplifyResult {
+  indices : FixedArray[UInt]
+  index_count : Int
+  error : Float
+} derive(Eq, @debug.Debug)
+
+pub struct TangentOptions(UInt) derive(Eq, @debug.Debug)
+pub fn TangentOptions::bits(Self) -> UInt
+pub fn TangentOptions::new(compatible? : Bool, zero_fallback? : Bool) -> Self
 
 pub struct VertexCacheStatistics {
   vertices_transformed : UInt
@@ -74,10 +295,20 @@ pub struct VertexCacheStatistics {
   atvr : Float
 } derive(Eq, @debug.Debug)
 
+pub struct VertexFetchOptimization {
+  vertices : Bytes
+  indices : FixedArray[UInt]
+  unique_vertex_count : Int
+} derive(Eq, @debug.Debug)
+
 pub struct VertexFetchStatistics {
   bytes_fetched : UInt
   overfetch : Float
 } derive(Eq, @debug.Debug)
+
+pub struct VertexLockFlags(Byte) derive(Eq, @debug.Debug)
+pub fn VertexLockFlags::byte(Self) -> Byte
+pub fn VertexLockFlags::new(lock? : Bool, protect? : Bool, priority? : Bool) -> Self
 
 // Type aliases
 

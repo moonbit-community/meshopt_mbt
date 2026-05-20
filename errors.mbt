@@ -39,3 +39,20 @@ fn require_bytes_length(
     "\{label} must contain at least \{expected} bytes",
   )
 }
+
+///|
+fn require_float_stream(
+  values : FixedArray[Float],
+  count : Int,
+  stride : Int,
+  minimum_stride : Int,
+  label : String,
+) -> Unit raise MeshoptError {
+  require(count >= 0, "\{label} count must be non-negative")
+  require(
+    stride >= minimum_stride,
+    "\{label} stride must be at least \{minimum_stride} bytes",
+  )
+  require(stride % 4 == 0, "\{label} stride must be divisible by 4")
+  require_fixedarray_length(values, count * (stride / 4), label)
+}

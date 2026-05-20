@@ -48,3 +48,60 @@ pub fn analyze_vertex_fetch(
   )
   { bytes_fetched: uint_stats[0], overfetch: float_stats[0] }
 }
+
+///|
+pub fn analyze_overdraw(
+  indices : FixedArray[UInt],
+  positions : FixedArray[Float],
+  vertex_count : Int,
+  positions_stride : Int,
+) -> OverdrawStatistics raise MeshoptError {
+  require_triangle_indices(indices.length())
+  require_float_stream(
+    positions, vertex_count, positions_stride, 12, "positions",
+  )
+  let uint_stats = FixedArray::make(2, 0U)
+  let float_stats = FixedArray::make(1, 0.0F)
+  analyze_overdraw_ffi(
+    uint_stats,
+    float_stats,
+    indices,
+    indices.length(),
+    positions,
+    vertex_count,
+    positions_stride,
+  )
+  {
+    pixels_covered: uint_stats[0],
+    pixels_shaded: uint_stats[1],
+    overdraw: float_stats[0],
+  }
+}
+
+///|
+pub fn analyze_coverage(
+  indices : FixedArray[UInt],
+  positions : FixedArray[Float],
+  vertex_count : Int,
+  positions_stride : Int,
+) -> CoverageStatistics raise MeshoptError {
+  require_triangle_indices(indices.length())
+  require_float_stream(
+    positions, vertex_count, positions_stride, 12, "positions",
+  )
+  let float_stats = FixedArray::make(4, 0.0F)
+  analyze_coverage_ffi(
+    float_stats,
+    indices,
+    indices.length(),
+    positions,
+    vertex_count,
+    positions_stride,
+  )
+  {
+    coverage_x: float_stats[0],
+    coverage_y: float_stats[1],
+    coverage_z: float_stats[2],
+    extent: float_stats[3],
+  }
+}

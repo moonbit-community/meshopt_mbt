@@ -3,16 +3,18 @@
 MoonBit native bindings for [meshoptimizer](https://github.com/zeux/meshoptimizer).
 
 This package vendors meshoptimizer's core library sources and exposes safe
-MoonBit wrappers over the native C ABI. The first implementation slice covers
-the binding architecture and these API groups:
+MoonBit wrappers over the native C ABI. The bindings cover meshoptimizer's
+public C API groups:
 
 - quantization helpers
-- vertex remap and remap application
-- vertex cache optimization
-- vertex fetch remap generation
-- index buffer encode/decode
-- vertex buffer encode/decode
-- vertex cache/fetch analysis
+- vertex remap, multi-stream remap, shadow remap, and remap application
+- vertex cache, overdraw, and vertex fetch optimization
+- index, index sequence, vertex, filter, and meshlet codecs
+- stripification and unstripification
+- vertex cache, fetch, overdraw, and coverage analysis
+- simplification, including attributes, locks, point simplification, and update-in-place simplification
+- meshlet building, meshlet bounds, cluster bounds, sphere bounds, extraction, and clustering
+- spatial sort, tangent generation, position exponent, and opacity map helpers
 
 The package targets MoonBit's native backend.
 
@@ -41,6 +43,17 @@ The native build uses `MESHOPTIMIZER_ALLOC_EXPORT` with a C allocator shim in
 the vendored allocator source. This keeps the package buildable through
 MoonBit native stubs without requiring downstream users to add C++ runtime
 linker flags.
+
+Two upstream escape hatches are intentionally not exposed as ordinary safe
+MoonBit APIs:
+
+- `meshopt_setAllocator`: allocation is fixed to the package's native stub
+  allocator so consumers do not need to manage a process-wide C++ allocator
+  callback.
+- `meshopt_generateVertexRemapCustom` with a callback: the package exposes
+  `generate_vertex_remap_custom_no_callback` for the default equality behavior.
+  A MoonBit callback ABI wrapper can be added later as a separate unsafe or
+  callback-specific API.
 
 ## Development
 

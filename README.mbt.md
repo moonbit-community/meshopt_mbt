@@ -132,7 +132,10 @@ moon fmt
 
 The test suite includes README doctests, API smoke tests, and a cube mesh
 fixture that exercises codecs, optimization, simplification, meshlets, bounds,
-and stripification on a realistic indexed mesh.
+and stripification on a realistic indexed mesh. It also includes extracted
+geometry from the Khronos glTF Sample Assets `BoxTextured` model to exercise
+asset-style UV attributes, tangent generation, opacity map measurement, and
+spatial sorting.
 
 For native memory-safety smoke testing, run:
 

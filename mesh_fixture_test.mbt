@@ -42,6 +42,182 @@ fn cube_vertex_bytes() -> Bytes {
 }
 
 ///|
+// Extracted from Khronos glTF-Sample-Assets BoxTextured/glTF.
+fn khronos_box_textured_indices() -> FixedArray[UInt] {
+  [
+    0U, 1U, 2U, 3U, 2U, 1U, 4U, 5U, 6U, 7U, 6U, 5U, 8U, 9U, 10U, 11U, 10U, 9U, 12U,
+    13U, 14U, 15U, 14U, 13U, 16U, 17U, 18U, 19U, 18U, 17U, 20U, 21U, 22U, 23U, 22U,
+    21U,
+  ]
+}
+
+///|
+fn khronos_box_textured_positions() -> FixedArray[Float] {
+  [
+    -0.5F,
+    -0.5F,
+    0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    -0.5F,
+    -0.5F,
+    0.5F,
+    0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    -0.5F,
+    0.5F,
+    -0.5F,
+    0.5F,
+    -0.5F,
+    -0.5F,
+    0.5F,
+    0.5F,
+    -0.5F,
+  ]
+}
+
+///|
+fn khronos_box_textured_uvs() -> FixedArray[Float] {
+  [
+    6.0F, 0.0F, 5.0F, 0.0F, 6.0F, 1.0F, 5.0F, 1.0F, 4.0F, 0.0F, 5.0F, 0.0F, 4.0F,
+    1.0F, 5.0F, 1.0F, 2.0F, 0.0F, 1.0F, 0.0F, 2.0F, 1.0F, 1.0F, 1.0F, 3.0F, 0.0F,
+    4.0F, 0.0F, 3.0F, 1.0F, 4.0F, 1.0F, 3.0F, 0.0F, 2.0F, 0.0F, 3.0F, 1.0F, 2.0F,
+    1.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, 1.0F, 1.0F,
+  ]
+}
+
+///|
+fn box_face_normals() -> FixedArray[Float] {
+  [
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    0.0F,
+    1.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+    0.0F,
+    0.0F,
+    -1.0F,
+  ]
+}
+
+///|
 fn same_triangles_with_rotation(
   lhs : FixedArray[UInt],
   rhs : FixedArray[UInt],
@@ -145,4 +321,54 @@ test "cube fixture runs codec optimization simplification and meshlet pipeline" 
   assert_true(strip_len > 0)
   let (_, unstrip_len) = try! @meshopt_mbt.unstripify_indices(strip)
   assert_true(unstrip_len >= indices.length())
+}
+
+///|
+test "khronos box textured fixture exercises asset style attributes" {
+  let indices = khronos_box_textured_indices()
+  let positions = khronos_box_textured_positions()
+  let uvs = khronos_box_textured_uvs()
+  let normals = box_face_normals()
+
+  let encoded = try! @meshopt_mbt.encode_index_buffer(indices, 24)
+  let decoded = try! @meshopt_mbt.decode_index_buffer(
+    encoded.data,
+    indices.length(),
+  )
+  assert_true(same_triangles_with_rotation(decoded, indices))
+
+  let simplified = try! @meshopt_mbt.simplify_with_attributes(
+    indices,
+    positions,
+    24,
+    12,
+    uvs,
+    8,
+    [1.0F, 1.0F],
+    2,
+    30,
+    0.2F,
+  )
+  assert_true(simplified.index_count <= indices.length())
+  assert_true(simplified.error >= 0.0F)
+
+  let tangents = try! @meshopt_mbt.generate_tangents(
+    indices, positions, 24, 12, normals, 12, uvs, 8,
+  )
+  assert_eq(tangents.length(), indices.length() * 4)
+
+  let sorted = try! @meshopt_mbt.spatial_sort_triangles(
+    indices, positions, 24, 12,
+  )
+  assert_eq(sorted.length(), indices.length())
+
+  let meshlets = try! @meshopt_mbt.build_meshlets(
+    indices, positions, 24, 12, 64, 64,
+  )
+  assert_true(meshlets.meshlet_count > 0)
+
+  let opacity = try! @meshopt_mbt.opacity_map_measure(
+    indices, uvs, 24, 8, 64, 64, 4, 2.0F,
+  )
+  assert_true(opacity.count > 0)
 }

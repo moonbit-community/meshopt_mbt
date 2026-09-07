@@ -46,7 +46,7 @@ pub fn analyze_vertex_fetch(
     vertex_count,
     vertex_size,
   )
-  { bytes_fetched: uint_stats[0], overfetch: float_stats[0] }
+  { bytes_fetched: uint_stats[0], overfetch: float_stats[0], }
 }
 
 ///|

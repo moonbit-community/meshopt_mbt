@@ -191,7 +191,7 @@ pub fn generate_provoking_index_buffer(
     indices.length(),
     vertex_count,
   )
-  { indices: destination, reorder, reorder_count }
+  { indices: destination, reorder, reorder_count, }
 }
 
 ///|

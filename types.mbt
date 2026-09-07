@@ -237,5 +237,113 @@ pub fn PackedStreams::new(
   strides : FixedArray[Int],
   stream_count : Int,
 ) -> PackedStreams {
-  { source, offsets, sizes, strides, stream_count }
+  { source, offsets, sizes, strides, stream_count, }
 }
+
+///|
+pub extend Bounds with Debug::{to_repr}
+
+///|
+pub extend Bounds with Eq::{not_equal, equal}
+
+///|
+pub extend CoverageStatistics with Debug::{to_repr}
+
+///|
+pub extend CoverageStatistics with Eq::{not_equal, equal}
+
+///|
+pub extend EncodeExpMode with Debug::{to_repr}
+
+///|
+pub extend EncodeExpMode with Eq::{not_equal, equal}
+
+///|
+pub extend MeshletBuild with Debug::{to_repr}
+
+///|
+pub extend MeshletBuild with Eq::{not_equal, equal}
+
+///|
+pub extend MeshletDecode with Debug::{to_repr}
+
+///|
+pub extend MeshletDecode with Eq::{not_equal, equal}
+
+///|
+pub extend MeshletDecodeRaw with Debug::{to_repr}
+
+///|
+pub extend MeshletDecodeRaw with Eq::{not_equal, equal}
+
+///|
+pub extend MeshoptData with Debug::{to_repr}
+
+///|
+pub extend MeshoptData with Eq::{not_equal, equal}
+
+///|
+pub extend OpacityMapMeasure with Debug::{to_repr}
+
+///|
+pub extend OpacityMapMeasure with Eq::{not_equal, equal}
+
+///|
+pub extend OverdrawStatistics with Debug::{to_repr}
+
+///|
+pub extend OverdrawStatistics with Eq::{not_equal, equal}
+
+///|
+pub extend PackedStreams with Debug::{to_repr}
+
+///|
+pub extend PackedStreams with Eq::{not_equal, equal}
+
+///|
+pub extend ProvokingIndexBuffer with Debug::{to_repr}
+
+///|
+pub extend ProvokingIndexBuffer with Eq::{not_equal, equal}
+
+///|
+pub extend SimplifyOptions with Debug::{to_repr}
+
+///|
+pub extend SimplifyOptions with Eq::{not_equal, equal}
+
+///|
+pub extend SimplifyResult with Debug::{to_repr}
+
+///|
+pub extend SimplifyResult with Eq::{not_equal, equal}
+
+///|
+pub extend TangentOptions with Debug::{to_repr}
+
+///|
+pub extend TangentOptions with Eq::{not_equal, equal}
+
+///|
+pub extend VertexCacheStatistics with Debug::{to_repr}
+
+///|
+pub extend VertexCacheStatistics with Eq::{not_equal, equal}
+
+///|
+pub extend VertexFetchOptimization with Debug::{to_repr}
+
+///|
+pub extend VertexFetchOptimization with Eq::{not_equal, equal}
+
+///|
+pub extend VertexFetchStatistics with Debug::{to_repr}
+
+///|
+pub extend VertexFetchStatistics with Eq::{not_equal, equal}
+
+///|
+pub extend VertexLockFlags with Debug::{to_repr}
+
+///|
+pub extend VertexLockFlags with Eq::{not_equal, equal}

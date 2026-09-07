@@ -56,3 +56,9 @@ fn require_float_stream(
   require(stride % 4 == 0, "\{label} stride must be divisible by 4")
   require_fixedarray_length(values, count * (stride / 4), label)
 }
+
+///|
+pub extend MeshoptError with Debug::{to_repr}
+
+///|
+pub extend MeshoptError with Eq::{not_equal, equal}

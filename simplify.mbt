@@ -32,7 +32,7 @@ pub fn simplify(
     target_error,
     options.bits(),
   )
-  { indices: destination, index_count, error: result_error[0] }
+  { indices: destination, index_count, error: result_error[0], }
 }
 
 ///|
@@ -89,7 +89,7 @@ pub fn simplify_with_attributes(
     target_error,
     options.bits(),
   )
-  { indices: destination, index_count, error: result_error[0] }
+  { indices: destination, index_count, error: result_error[0], }
 }
 
 ///|
@@ -197,7 +197,7 @@ pub fn simplify_sloppy(
     target_index_count,
     target_error,
   )
-  { indices: destination, index_count, error: result_error[0] }
+  { indices: destination, index_count, error: result_error[0], }
 }
 
 ///|

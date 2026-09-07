@@ -20,7 +20,7 @@ pub fn encode_index_buffer(
     raise MeshoptError("index buffer encoding failed")
   }
   shrink_bytes(buffer, length)
-  { data: buffer, length }
+  { data: buffer, length, }
 }
 
 ///|
@@ -90,7 +90,7 @@ pub fn encode_vertex_buffer(
     raise MeshoptError("vertex buffer encoding failed")
   }
   shrink_bytes(buffer, length)
-  { data: buffer, length }
+  { data: buffer, length, }
 }
 
 ///|
@@ -153,7 +153,7 @@ pub fn encode_index_sequence(
     raise MeshoptError("index sequence encoding failed")
   }
   shrink_bytes(buffer, length)
-  { data: buffer, length }
+  { data: buffer, length, }
 }
 
 ///|
@@ -228,7 +228,7 @@ pub fn encode_vertex_buffer_level(
     raise MeshoptError("vertex buffer encoding failed")
   }
   shrink_bytes(buffer, length)
-  { data: buffer, length }
+  { data: buffer, length, }
 }
 
 ///|

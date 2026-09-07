@@ -192,6 +192,9 @@ pub let version : Int
 pub suberror MeshoptError {
   MeshoptError(String)
 } derive(Eq, @debug.Debug)
+pub fn MeshoptError::equal(Self, Self) -> Bool
+pub fn MeshoptError::not_equal(Self, Self) -> Bool
+pub fn MeshoptError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
 pub struct Bounds {
@@ -211,6 +214,9 @@ pub struct Bounds {
   cone_axis_s8_z : Int
   cone_cutoff_s8 : Int
 } derive(Eq, @debug.Debug)
+pub fn Bounds::equal(Self, Self) -> Bool
+pub fn Bounds::not_equal(Self, Self) -> Bool
+pub fn Bounds::to_repr(Self) -> @debug.Repr
 
 pub struct CoverageStatistics {
   coverage_x : Float
@@ -218,6 +224,9 @@ pub struct CoverageStatistics {
   coverage_z : Float
   extent : Float
 } derive(Eq, @debug.Debug)
+pub fn CoverageStatistics::equal(Self, Self) -> Bool
+pub fn CoverageStatistics::not_equal(Self, Self) -> Bool
+pub fn CoverageStatistics::to_repr(Self) -> @debug.Repr
 
 pub enum EncodeExpMode {
   Separate
@@ -225,6 +234,9 @@ pub enum EncodeExpMode {
   SharedComponent
   Clamped
 } derive(Eq, @debug.Debug)
+pub fn EncodeExpMode::equal(Self, Self) -> Bool
+pub fn EncodeExpMode::not_equal(Self, Self) -> Bool
+pub fn EncodeExpMode::to_repr(Self) -> @debug.Repr
 
 pub struct MeshletBuild {
   meshlets : FixedArray[UInt]
@@ -232,21 +244,33 @@ pub struct MeshletBuild {
   triangles : Bytes
   meshlet_count : Int
 } derive(Eq, @debug.Debug)
+pub fn MeshletBuild::equal(Self, Self) -> Bool
+pub fn MeshletBuild::not_equal(Self, Self) -> Bool
+pub fn MeshletBuild::to_repr(Self) -> @debug.Repr
 
 pub struct MeshletDecode {
   vertices : Bytes
   triangles : Bytes
 } derive(Eq, @debug.Debug)
+pub fn MeshletDecode::equal(Self, Self) -> Bool
+pub fn MeshletDecode::not_equal(Self, Self) -> Bool
+pub fn MeshletDecode::to_repr(Self) -> @debug.Repr
 
 pub struct MeshletDecodeRaw {
   vertices : FixedArray[UInt]
   triangles : FixedArray[UInt]
 } derive(Eq, @debug.Debug)
+pub fn MeshletDecodeRaw::equal(Self, Self) -> Bool
+pub fn MeshletDecodeRaw::not_equal(Self, Self) -> Bool
+pub fn MeshletDecodeRaw::to_repr(Self) -> @debug.Repr
 
 pub struct MeshoptData {
   data : Bytes
   length : Int
 } derive(Eq, @debug.Debug)
+pub fn MeshoptData::equal(Self, Self) -> Bool
+pub fn MeshoptData::not_equal(Self, Self) -> Bool
+pub fn MeshoptData::to_repr(Self) -> @debug.Repr
 
 pub struct OpacityMapMeasure {
   levels : Bytes
@@ -254,12 +278,18 @@ pub struct OpacityMapMeasure {
   omm_indices : FixedArray[Int]
   count : Int
 } derive(Eq, @debug.Debug)
+pub fn OpacityMapMeasure::equal(Self, Self) -> Bool
+pub fn OpacityMapMeasure::not_equal(Self, Self) -> Bool
+pub fn OpacityMapMeasure::to_repr(Self) -> @debug.Repr
 
 pub struct OverdrawStatistics {
   pixels_covered : UInt
   pixels_shaded : UInt
   overdraw : Float
 } derive(Eq, @debug.Debug)
+pub fn OverdrawStatistics::equal(Self, Self) -> Bool
+pub fn OverdrawStatistics::not_equal(Self, Self) -> Bool
+pub fn OverdrawStatistics::to_repr(Self) -> @debug.Repr
 
 pub struct PackedStreams {
   source : Bytes
@@ -268,27 +298,42 @@ pub struct PackedStreams {
   strides : FixedArray[Int]
   stream_count : Int
 } derive(Eq, @debug.Debug)
+pub fn PackedStreams::equal(Self, Self) -> Bool
 pub fn PackedStreams::new(Bytes, FixedArray[Int], FixedArray[Int], FixedArray[Int], Int) -> Self
+pub fn PackedStreams::not_equal(Self, Self) -> Bool
+pub fn PackedStreams::to_repr(Self) -> @debug.Repr
 
 pub struct ProvokingIndexBuffer {
   indices : FixedArray[UInt]
   reorder : FixedArray[UInt]
   reorder_count : Int
 } derive(Eq, @debug.Debug)
+pub fn ProvokingIndexBuffer::equal(Self, Self) -> Bool
+pub fn ProvokingIndexBuffer::not_equal(Self, Self) -> Bool
+pub fn ProvokingIndexBuffer::to_repr(Self) -> @debug.Repr
 
 pub struct SimplifyOptions(UInt) derive(Eq, @debug.Debug)
 pub fn SimplifyOptions::bits(Self) -> UInt
+pub fn SimplifyOptions::equal(Self, Self) -> Bool
 pub fn SimplifyOptions::new(lock_border? : Bool, sparse? : Bool, error_absolute? : Bool, prune? : Bool, regularize? : Bool, permissive? : Bool, regularize_light? : Bool) -> Self
+pub fn SimplifyOptions::not_equal(Self, Self) -> Bool
+pub fn SimplifyOptions::to_repr(Self) -> @debug.Repr
 
 pub struct SimplifyResult {
   indices : FixedArray[UInt]
   index_count : Int
   error : Float
 } derive(Eq, @debug.Debug)
+pub fn SimplifyResult::equal(Self, Self) -> Bool
+pub fn SimplifyResult::not_equal(Self, Self) -> Bool
+pub fn SimplifyResult::to_repr(Self) -> @debug.Repr
 
 pub struct TangentOptions(UInt) derive(Eq, @debug.Debug)
 pub fn TangentOptions::bits(Self) -> UInt
+pub fn TangentOptions::equal(Self, Self) -> Bool
 pub fn TangentOptions::new(compatible? : Bool, zero_fallback? : Bool) -> Self
+pub fn TangentOptions::not_equal(Self, Self) -> Bool
+pub fn TangentOptions::to_repr(Self) -> @debug.Repr
 
 pub struct VertexCacheStatistics {
   vertices_transformed : UInt
@@ -296,23 +341,34 @@ pub struct VertexCacheStatistics {
   acmr : Float
   atvr : Float
 } derive(Eq, @debug.Debug)
+pub fn VertexCacheStatistics::equal(Self, Self) -> Bool
+pub fn VertexCacheStatistics::not_equal(Self, Self) -> Bool
+pub fn VertexCacheStatistics::to_repr(Self) -> @debug.Repr
 
 pub struct VertexFetchOptimization {
   vertices : Bytes
   indices : FixedArray[UInt]
   unique_vertex_count : Int
 } derive(Eq, @debug.Debug)
+pub fn VertexFetchOptimization::equal(Self, Self) -> Bool
+pub fn VertexFetchOptimization::not_equal(Self, Self) -> Bool
+pub fn VertexFetchOptimization::to_repr(Self) -> @debug.Repr
 
 pub struct VertexFetchStatistics {
   bytes_fetched : UInt
   overfetch : Float
 } derive(Eq, @debug.Debug)
+pub fn VertexFetchStatistics::equal(Self, Self) -> Bool
+pub fn VertexFetchStatistics::not_equal(Self, Self) -> Bool
+pub fn VertexFetchStatistics::to_repr(Self) -> @debug.Repr
 
 pub struct VertexLockFlags(Byte) derive(Eq, @debug.Debug)
 pub fn VertexLockFlags::byte(Self) -> Byte
+pub fn VertexLockFlags::equal(Self, Self) -> Bool
 pub fn VertexLockFlags::new(lock? : Bool, protect? : Bool, priority? : Bool) -> Self
+pub fn VertexLockFlags::not_equal(Self, Self) -> Bool
+pub fn VertexLockFlags::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 
 // Traits
-

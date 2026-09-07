@@ -42,7 +42,7 @@ pub fn opacity_map_measure(
   let count = opacity_map_measure_ffi(
     levels, sources, omm_indices, indices, uvs, int_params, target_edge,
   )
-  { levels, sources, omm_indices, count }
+  { levels, sources, omm_indices, count, }
 }
 
 ///|

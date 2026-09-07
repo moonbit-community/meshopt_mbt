@@ -73,7 +73,7 @@ pub fn build_meshlets(
   let meshlet_count = build_meshlets_ffi(
     meshlets, vertices, triangles, indices, positions, int_params, float_params,
   )
-  { meshlets, vertices, triangles, meshlet_count }
+  { meshlets, vertices, triangles, meshlet_count, }
 }
 
 ///|
@@ -103,7 +103,7 @@ pub fn build_meshlets_scan(
     max_vertices,
     max_triangles,
   )
-  { meshlets, vertices, triangles, meshlet_count }
+  { meshlets, vertices, triangles, meshlet_count, }
 }
 
 ///|
@@ -143,7 +143,7 @@ pub fn build_meshlets_flex(
   let meshlet_count = build_meshlets_flex_ffi(
     meshlets, vertices, triangles, indices, positions, int_params, float_params,
   )
-  { meshlets, vertices, triangles, meshlet_count }
+  { meshlets, vertices, triangles, meshlet_count, }
 }
 
 ///|
@@ -182,7 +182,7 @@ pub fn build_meshlets_spatial(
   let meshlet_count = build_meshlets_spatial_ffi(
     meshlets, vertices, triangles, indices, positions, int_params, float_params,
   )
-  { meshlets, vertices, triangles, meshlet_count }
+  { meshlets, vertices, triangles, meshlet_count, }
 }
 
 ///|
@@ -289,7 +289,7 @@ pub fn encode_meshlet(
     raise MeshoptError("meshlet encoding failed")
   }
   shrink_bytes(buffer, length)
-  { data: buffer, length }
+  { data: buffer, length, }
 }
 
 ///|
@@ -313,7 +313,7 @@ pub fn decode_meshlet_raw(
   if status != 0 {
     raise MeshoptError("meshlet decoding failed")
   }
-  { vertices, triangles }
+  { vertices, triangles, }
 }
 
 ///|
@@ -346,7 +346,7 @@ pub fn decode_meshlet(
   if status != 0 {
     raise MeshoptError("meshlet decoding failed")
   }
-  { vertices, triangles }
+  { vertices, triangles, }
 }
 
 ///|

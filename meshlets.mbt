@@ -1,7 +1,7 @@
 ///|
 fn bounds_from_arrays(
   values : FixedArray[Float],
-  ints : FixedArray[Int],
+  ints : FixedArray[Int32],
 ) -> Bounds {
   {
     center_x: values[0],
@@ -24,10 +24,10 @@ fn bounds_from_arrays(
 
 ///|
 pub fn build_meshlets_bound(
-  index_count : Int,
-  max_vertices : Int,
-  max_triangles : Int,
-) -> Int raise MeshoptError {
+  index_count : Int32,
+  max_vertices : Int32,
+  max_triangles : Int32,
+) -> Int32 raise MeshoptError {
   require_triangle_indices(index_count)
   require(
     max_vertices > 0 && max_vertices <= 256,
@@ -42,13 +42,13 @@ pub fn build_meshlets_bound(
 
 ///|
 pub fn build_meshlets(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  max_vertices : Int,
-  max_triangles : Int,
-  cone_weight? : Float = 0.0F,
+  vertex_count : Int32,
+  positions_stride : Int32,
+  max_vertices : Int32,
+  max_triangles : Int32,
+  cone_weight~ : Float = 0.0F,
 ) -> MeshletBuild raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
@@ -62,7 +62,7 @@ pub fn build_meshlets(
   let meshlets = FixedArray::make(bound * 4, 0U)
   let vertices = FixedArray::make(indices.length(), 0U)
   let triangles = Bytes::make(indices.length(), 0)
-  let int_params : FixedArray[Int] = [
+  let int_params : FixedArray[Int32] = [
     indices.length(),
     vertex_count,
     positions_stride,
@@ -78,10 +78,10 @@ pub fn build_meshlets(
 
 ///|
 pub fn build_meshlets_scan(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
-  max_vertices : Int,
-  max_triangles : Int,
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
+  max_vertices : Int32,
+  max_triangles : Int32,
 ) -> MeshletBuild raise MeshoptError {
   require_triangle_indices(indices.length())
   require(vertex_count >= 0, "vertex count must be non-negative")
@@ -108,15 +108,15 @@ pub fn build_meshlets_scan(
 
 ///|
 pub fn build_meshlets_flex(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  max_vertices : Int,
-  min_triangles : Int,
-  max_triangles : Int,
-  cone_weight? : Float = 0.0F,
-  split_factor? : Float = 1.0F,
+  vertex_count : Int32,
+  positions_stride : Int32,
+  max_vertices : Int32,
+  min_triangles : Int32,
+  max_triangles : Int32,
+  cone_weight~ : Float = 0.0F,
+  split_factor~ : Float = 1.0F,
 ) -> MeshletBuild raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
@@ -131,7 +131,7 @@ pub fn build_meshlets_flex(
   let meshlets = FixedArray::make(bound * 4, 0U)
   let vertices = FixedArray::make(indices.length(), 0U)
   let triangles = Bytes::make(indices.length(), 0)
-  let int_params : FixedArray[Int] = [
+  let int_params : FixedArray[Int32] = [
     indices.length(),
     vertex_count,
     positions_stride,
@@ -148,14 +148,14 @@ pub fn build_meshlets_flex(
 
 ///|
 pub fn build_meshlets_spatial(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  max_vertices : Int,
-  min_triangles : Int,
-  max_triangles : Int,
-  fill_weight? : Float = 0.5F,
+  vertex_count : Int32,
+  positions_stride : Int32,
+  max_vertices : Int32,
+  min_triangles : Int32,
+  max_triangles : Int32,
+  fill_weight~ : Float = 0.5F,
 ) -> MeshletBuild raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
@@ -170,7 +170,7 @@ pub fn build_meshlets_spatial(
   let meshlets = FixedArray::make(bound * 4, 0U)
   let vertices = FixedArray::make(indices.length(), 0U)
   let triangles = Bytes::make(indices.length(), 0)
-  let int_params : FixedArray[Int] = [
+  let int_params : FixedArray[Int32] = [
     indices.length(),
     vertex_count,
     positions_stride,
@@ -187,10 +187,10 @@ pub fn build_meshlets_spatial(
 
 ///|
 pub fn optimize_meshlet(
-  meshlet_vertices : FixedArray[UInt],
+  meshlet_vertices : FixedArray[UInt32],
   meshlet_triangles : Bytes,
-  triangle_count : Int,
-  vertex_count : Int,
+  triangle_count : Int32,
+  vertex_count : Int32,
 ) -> Unit raise MeshoptError {
   require(triangle_count >= 0, "triangle count must be non-negative")
   require(vertex_count >= 0, "vertex count must be non-negative")
@@ -207,11 +207,11 @@ pub fn optimize_meshlet(
 
 ///|
 pub fn optimize_meshlet_level(
-  meshlet_vertices : FixedArray[UInt],
+  meshlet_vertices : FixedArray[UInt32],
   meshlet_triangles : Bytes,
-  triangle_count : Int,
-  vertex_count : Int,
-  level : Int,
+  triangle_count : Int32,
+  vertex_count : Int32,
+  level : Int32,
 ) -> Unit raise MeshoptError {
   require(
     level >= 0 && level <= 9,
@@ -232,8 +232,8 @@ pub fn optimize_meshlet_level(
 
 ///|
 pub fn extract_meshlet_indices(
-  indices : FixedArray[UInt],
-) -> (FixedArray[UInt], Bytes, Int) raise MeshoptError {
+  indices : FixedArray[UInt32],
+) -> (FixedArray[UInt32], Bytes, Int32) raise MeshoptError {
   require_triangle_indices(indices.length())
   let vertices = FixedArray::make(indices.length(), 0U)
   let triangles = Bytes::make(indices.length(), 0)
@@ -248,9 +248,9 @@ pub fn extract_meshlet_indices(
 
 ///|
 pub fn encode_meshlet_bound(
-  max_vertices : Int,
-  max_triangles : Int,
-) -> Int raise MeshoptError {
+  max_vertices : Int32,
+  max_triangles : Int32,
+) -> Int32 raise MeshoptError {
   require(
     max_vertices > 0 && max_vertices <= 256,
     "max vertices must be in 1..=256",
@@ -264,10 +264,10 @@ pub fn encode_meshlet_bound(
 
 ///|
 pub fn encode_meshlet(
-  vertices : FixedArray[UInt],
-  vertex_count : Int,
+  vertices : FixedArray[UInt32],
+  vertex_count : Int32,
   triangles : Bytes,
-  triangle_count : Int,
+  triangle_count : Int32,
 ) -> MeshoptData raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(triangle_count >= 0, "triangle count must be non-negative")
@@ -295,8 +295,8 @@ pub fn encode_meshlet(
 ///|
 pub fn decode_meshlet_raw(
   encoded : Bytes,
-  vertex_count : Int,
-  triangle_count : Int,
+  vertex_count : Int32,
+  triangle_count : Int32,
 ) -> MeshletDecodeRaw raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(triangle_count >= 0, "triangle count must be non-negative")
@@ -319,10 +319,10 @@ pub fn decode_meshlet_raw(
 ///|
 pub fn decode_meshlet(
   encoded : Bytes,
-  vertex_count : Int,
-  vertex_size : Int,
-  triangle_count : Int,
-  triangle_size : Int,
+  vertex_count : Int32,
+  vertex_size : Int32,
+  triangle_count : Int32,
+  triangle_size : Int32,
 ) -> MeshletDecode raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(vertex_size > 0, "vertex size must be positive")
@@ -351,10 +351,10 @@ pub fn decode_meshlet(
 
 ///|
 pub fn compute_cluster_bounds(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
 ) -> Bounds raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
@@ -376,12 +376,12 @@ pub fn compute_cluster_bounds(
 
 ///|
 pub fn compute_meshlet_bounds(
-  meshlet_vertices : FixedArray[UInt],
+  meshlet_vertices : FixedArray[UInt32],
   meshlet_triangles : Bytes,
-  triangle_count : Int,
+  triangle_count : Int32,
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
 ) -> Bounds raise MeshoptError {
   require(triangle_count >= 0, "triangle count must be non-negative")
   require_float_stream(
@@ -404,10 +404,10 @@ pub fn compute_meshlet_bounds(
 ///|
 pub fn compute_sphere_bounds(
   positions : FixedArray[Float],
-  count : Int,
-  positions_stride : Int,
-  radii? : FixedArray[Float] = [],
-  radii_stride? : Int = 0,
+  count : Int32,
+  positions_stride : Int32,
+  radii~ : FixedArray[Float] = [],
+  radii_stride~ : Int32 = 0,
 ) -> Bounds raise MeshoptError {
   require_float_stream(positions, count, positions_stride, 12, "positions")
   if radii_stride > 0 {

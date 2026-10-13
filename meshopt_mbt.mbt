@@ -1,2 +1,2 @@
 ///|
-pub let version : Int = 1010
+pub let version : Int32 = 1010

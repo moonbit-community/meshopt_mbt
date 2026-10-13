@@ -1,10 +1,10 @@
 ///|
 pub fn analyze_vertex_cache(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
-  cache_size? : UInt = 16U,
-  warp_size? : UInt = 0U,
-  primgroup_size? : UInt = 0U,
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
+  cache_size~ : UInt32 = 16U,
+  warp_size~ : UInt32 = 0U,
+  primgroup_size~ : UInt32 = 0U,
 ) -> VertexCacheStatistics raise MeshoptError {
   require_triangle_indices(indices.length())
   require(vertex_count >= 0, "vertex count must be non-negative")
@@ -30,9 +30,9 @@ pub fn analyze_vertex_cache(
 
 ///|
 pub fn analyze_vertex_fetch(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
-  vertex_size : Int,
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
+  vertex_size : Int32,
 ) -> VertexFetchStatistics raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(vertex_size > 0, "vertex size must be positive")
@@ -51,10 +51,10 @@ pub fn analyze_vertex_fetch(
 
 ///|
 pub fn analyze_overdraw(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
 ) -> OverdrawStatistics raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
@@ -80,10 +80,10 @@ pub fn analyze_overdraw(
 
 ///|
 pub fn analyze_coverage(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
 ) -> CoverageStatistics raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(

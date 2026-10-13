@@ -1,5 +1,5 @@
 ///|
-fn cube_indices() -> FixedArray[UInt] {
+fn cube_indices() -> FixedArray[UInt32] {
   [
     0U, 1U, 2U, 2U, 1U, 3U, 4U, 6U, 5U, 5U, 6U, 7U, 0U, 2U, 4U, 4U, 2U, 6U, 1U, 5U,
     3U, 3U, 5U, 7U, 2U, 3U, 6U, 6U, 3U, 7U, 0U, 4U, 1U, 1U, 4U, 5U,
@@ -43,7 +43,7 @@ fn cube_vertex_bytes() -> Bytes {
 
 ///|
 // Extracted from Khronos glTF-Sample-Assets BoxTextured/glTF.
-fn khronos_box_textured_indices() -> FixedArray[UInt] {
+fn khronos_box_textured_indices() -> FixedArray[UInt32] {
   [
     0U, 1U, 2U, 3U, 2U, 1U, 4U, 5U, 6U, 7U, 6U, 5U, 8U, 9U, 10U, 11U, 10U, 9U, 12U,
     13U, 14U, 15U, 14U, 13U, 16U, 17U, 18U, 19U, 18U, 17U, 20U, 21U, 22U, 23U, 22U,
@@ -219,8 +219,8 @@ fn box_face_normals() -> FixedArray[Float] {
 
 ///|
 fn same_triangles_with_rotation(
-  lhs : FixedArray[UInt],
-  rhs : FixedArray[UInt],
+  lhs : FixedArray[UInt32],
+  rhs : FixedArray[UInt32],
 ) -> Bool {
   if lhs.length() != rhs.length() || lhs.length() % 3 != 0 {
     false

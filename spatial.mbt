@@ -1,9 +1,9 @@
 ///|
 pub fn spatial_sort_remap(
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
   )
@@ -14,11 +14,11 @@ pub fn spatial_sort_remap(
 
 ///|
 pub fn spatial_sort_triangles(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
@@ -38,10 +38,10 @@ pub fn spatial_sort_triangles(
 ///|
 pub fn spatial_cluster_points(
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  cluster_size : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+  cluster_size : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
   )
@@ -55,15 +55,15 @@ pub fn spatial_cluster_points(
 
 ///|
 pub fn generate_tangents(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
   normals : FixedArray[Float],
-  normals_stride : Int,
+  normals_stride : Int32,
   uvs : FixedArray[Float],
-  uvs_stride : Int,
-  options? : TangentOptions = TangentOptions::new(),
+  uvs_stride : Int32,
+  options~ : TangentOptions = TangentOptions::new(),
 ) -> FixedArray[Float] raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
@@ -92,9 +92,9 @@ pub fn generate_tangents(
 pub fn compute_position_exponent(
   minv : FixedArray[Float],
   maxv : FixedArray[Float],
-  min_exp : Int,
-  max_bits : Int,
-) -> Int raise MeshoptError {
+  min_exp : Int32,
+  max_bits : Int32,
+) -> Int32 raise MeshoptError {
   require_fixedarray_length(minv, 3, "minimum bounds")
   require_fixedarray_length(maxv, 3, "maximum bounds")
   require(max_bits > 0, "max bits must be positive")
@@ -103,13 +103,13 @@ pub fn compute_position_exponent(
 
 ///|
 pub fn partition_clusters(
-  cluster_indices : FixedArray[UInt],
-  cluster_index_counts : FixedArray[UInt],
+  cluster_indices : FixedArray[UInt32],
+  cluster_index_counts : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  target_partition_size : Int,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+  target_partition_size : Int32,
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require(
     cluster_indices.length() >= 0,
     "cluster index count must be non-negative",

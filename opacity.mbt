@@ -1,8 +1,8 @@
 ///|
 pub fn opacity_map_entry_size(
-  level : Int,
-  states : Int,
-) -> Int raise MeshoptError {
+  level : Int32,
+  states : Int32,
+) -> Int32 raise MeshoptError {
   require(level >= 0, "opacity map level must be non-negative")
   require(states == 2 || states == 4, "opacity map states must be 2 or 4")
   opacity_map_entry_size_ffi(level, states)
@@ -10,13 +10,13 @@ pub fn opacity_map_entry_size(
 
 ///|
 pub fn opacity_map_measure(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   uvs : FixedArray[Float],
-  vertex_count : Int,
-  uvs_stride : Int,
-  texture_width : Int,
-  texture_height : Int,
-  max_level : Int,
+  vertex_count : Int32,
+  uvs_stride : Int32,
+  texture_width : Int32,
+  texture_height : Int32,
+  max_level : Int32,
   target_edge : Float,
 ) -> OpacityMapMeasure raise MeshoptError {
   require_triangle_indices(indices.length())
@@ -31,7 +31,7 @@ pub fn opacity_map_measure(
   let levels = Bytes::make(triangle_count, 0)
   let sources = FixedArray::make(triangle_count, 0U)
   let omm_indices = FixedArray::make(triangle_count, 0)
-  let int_params : FixedArray[Int] = [
+  let int_params : FixedArray[Int32] = [
     indices.length(),
     vertex_count,
     uvs_stride,
@@ -47,16 +47,16 @@ pub fn opacity_map_measure(
 
 ///|
 pub fn opacity_map_rasterize(
-  level : Int,
-  states : Int,
+  level : Int32,
+  states : Int32,
   uv0 : FixedArray[Float],
   uv1 : FixedArray[Float],
   uv2 : FixedArray[Float],
   texture_data : Bytes,
-  texture_stride : Int,
-  texture_pitch : Int,
-  texture_width : Int,
-  texture_height : Int,
+  texture_stride : Int32,
+  texture_pitch : Int32,
+  texture_width : Int32,
+  texture_height : Int32,
 ) -> Bytes raise MeshoptError {
   require_fixedarray_length(uv0, 2, "uv0")
   require_fixedarray_length(uv1, 2, "uv1")
@@ -80,7 +80,7 @@ pub fn opacity_map_rasterize(
     "texture data is too short",
   )
   let result = Bytes::make(opacity_map_entry_size(level, states), 0)
-  let int_params : FixedArray[Int] = [
+  let int_params : FixedArray[Int32] = [
     level, states, texture_stride, texture_pitch, texture_width, texture_height,
   ]
   opacity_map_rasterize_ffi(result, uv0, uv1, uv2, texture_data, int_params)
@@ -91,12 +91,12 @@ pub fn opacity_map_rasterize(
 pub fn opacity_map_compact(
   data : Bytes,
   levels : Bytes,
-  offsets : FixedArray[UInt],
-  omm_count : Int,
-  omm_indices : FixedArray[Int],
-  triangle_count : Int,
-  states : Int,
-) -> Int raise MeshoptError {
+  offsets : FixedArray[UInt32],
+  omm_count : Int32,
+  omm_indices : FixedArray[Int32],
+  triangle_count : Int32,
+  states : Int32,
+) -> Int32 raise MeshoptError {
   require(omm_count >= 0, "opacity map count must be non-negative")
   require(triangle_count >= 0, "triangle count must be non-negative")
   require(states == 2 || states == 4, "opacity map states must be 2 or 4")
@@ -116,7 +116,10 @@ pub fn opacity_map_compact(
 }
 
 ///|
-fn require_texture_size(width : Int, height : Int) -> Unit raise MeshoptError {
+fn require_texture_size(
+  width : Int32,
+  height : Int32,
+) -> Unit raise MeshoptError {
   require(
     width >= 1 && width <= 16384,
     "texture width must be between 1 and 16384",

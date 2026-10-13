@@ -1,8 +1,8 @@
 ///|
 pub fn encode_index_buffer_bound(
-  index_count : Int,
-  vertex_count : Int,
-) -> Int raise MeshoptError {
+  index_count : Int32,
+  vertex_count : Int32,
+) -> Int32 raise MeshoptError {
   require_triangle_indices(index_count)
   require(vertex_count >= 0, "vertex count must be non-negative")
   encode_index_buffer_bound_ffi(index_count, vertex_count)
@@ -10,8 +10,8 @@ pub fn encode_index_buffer_bound(
 
 ///|
 pub fn encode_index_buffer(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
 ) -> MeshoptData raise MeshoptError {
   let bound = encode_index_buffer_bound(indices.length(), vertex_count)
   let buffer = Bytes::make(bound, 0)
@@ -26,8 +26,8 @@ pub fn encode_index_buffer(
 ///|
 pub fn decode_index_buffer(
   encoded : Bytes,
-  index_count : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  index_count : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_triangle_indices(index_count)
   let destination = FixedArray::make(index_count, 0U)
   let status = decode_index_buffer_ffi(
@@ -45,8 +45,8 @@ pub fn decode_index_buffer(
 ///|
 pub fn decode_index_buffer_bytes(
   encoded : Bytes,
-  index_count : Int,
-  index_size : Int,
+  index_count : Int32,
+  index_size : Int32,
 ) -> Bytes raise MeshoptError {
   require_triangle_indices(index_count)
   require_index_size(index_size)
@@ -66,9 +66,9 @@ pub fn decode_index_buffer_bytes(
 
 ///|
 pub fn encode_vertex_buffer_bound(
-  vertex_count : Int,
-  vertex_size : Int,
-) -> Int raise MeshoptError {
+  vertex_count : Int32,
+  vertex_size : Int32,
+) -> Int32 raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(vertex_size > 0, "vertex size must be positive")
   encode_vertex_buffer_bound_ffi(vertex_count, vertex_size)
@@ -77,8 +77,8 @@ pub fn encode_vertex_buffer_bound(
 ///|
 pub fn encode_vertex_buffer(
   vertices : Bytes,
-  vertex_count : Int,
-  vertex_size : Int,
+  vertex_count : Int32,
+  vertex_size : Int32,
 ) -> MeshoptData raise MeshoptError {
   require_bytes_length(vertices, vertex_count * vertex_size, "vertices")
   let bound = encode_vertex_buffer_bound(vertex_count, vertex_size)
@@ -96,8 +96,8 @@ pub fn encode_vertex_buffer(
 ///|
 pub fn decode_vertex_buffer(
   encoded : Bytes,
-  vertex_count : Int,
-  vertex_size : Int,
+  vertex_count : Int32,
+  vertex_size : Int32,
 ) -> Bytes raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(vertex_size > 0, "vertex size must be positive")
@@ -116,21 +116,21 @@ pub fn decode_vertex_buffer(
 }
 
 ///|
-pub fn encode_index_version(version : Int) -> Unit raise MeshoptError {
+pub fn encode_index_version(version : Int32) -> Unit raise MeshoptError {
   require(version == 0 || version == 1, "index encoder version must be 0 or 1")
   encode_index_version_ffi(version)
 }
 
 ///|
-pub fn decode_index_version(encoded : Bytes) -> Int {
+pub fn decode_index_version(encoded : Bytes) -> Int32 {
   decode_index_version_ffi(encoded, encoded.length())
 }
 
 ///|
 pub fn encode_index_sequence_bound(
-  index_count : Int,
-  vertex_count : Int,
-) -> Int raise MeshoptError {
+  index_count : Int32,
+  vertex_count : Int32,
+) -> Int32 raise MeshoptError {
   require(index_count >= 0, "index count must be non-negative")
   require(vertex_count >= 0, "vertex count must be non-negative")
   encode_index_sequence_bound_ffi(index_count, vertex_count)
@@ -138,8 +138,8 @@ pub fn encode_index_sequence_bound(
 
 ///|
 pub fn encode_index_sequence(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
 ) -> MeshoptData raise MeshoptError {
   let bound = encode_index_sequence_bound(indices.length(), vertex_count)
   let buffer = Bytes::make(bound, 0)
@@ -159,8 +159,8 @@ pub fn encode_index_sequence(
 ///|
 pub fn decode_index_sequence(
   encoded : Bytes,
-  index_count : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  index_count : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require(index_count >= 0, "index count must be non-negative")
   let destination = FixedArray::make(index_count, 0U)
   let status = decode_index_sequence_ffi(
@@ -178,8 +178,8 @@ pub fn decode_index_sequence(
 ///|
 pub fn decode_index_sequence_bytes(
   encoded : Bytes,
-  index_count : Int,
-  index_size : Int,
+  index_count : Int32,
+  index_size : Int32,
 ) -> Bytes raise MeshoptError {
   require(index_count >= 0, "index count must be non-negative")
   require_index_size(index_size)
@@ -198,23 +198,23 @@ pub fn decode_index_sequence_bytes(
 }
 
 ///|
-pub fn encode_vertex_version(version : Int) -> Unit raise MeshoptError {
+pub fn encode_vertex_version(version : Int32) -> Unit raise MeshoptError {
   require(version == 0 || version == 1, "vertex encoder version must be 0 or 1")
   encode_vertex_version_ffi(version)
 }
 
 ///|
-pub fn decode_vertex_version(encoded : Bytes) -> Int {
+pub fn decode_vertex_version(encoded : Bytes) -> Int32 {
   decode_vertex_version_ffi(encoded, encoded.length())
 }
 
 ///|
 pub fn encode_vertex_buffer_level(
   vertices : Bytes,
-  vertex_count : Int,
-  vertex_size : Int,
-  level : Int,
-  version : Int,
+  vertex_count : Int32,
+  vertex_size : Int32,
+  level : Int32,
+  version : Int32,
 ) -> MeshoptData raise MeshoptError {
   require(level >= 0 && level <= 3, "vertex encoder level must be in 0..=3")
   require(version == 0 || version == 1, "vertex encoder version must be 0 or 1")
@@ -232,6 +232,6 @@ pub fn encode_vertex_buffer_level(
 }
 
 ///|
-fn require_index_size(index_size : Int) -> Unit raise MeshoptError {
+fn require_index_size(index_size : Int32) -> Unit raise MeshoptError {
   require(index_size == 2 || index_size == 4, "index size must be 2 or 4 bytes")
 }

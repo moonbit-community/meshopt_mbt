@@ -1,21 +1,21 @@
 ///|
 pub struct VertexCacheStatistics {
-  vertices_transformed : UInt
-  warps_executed : UInt
+  vertices_transformed : UInt32
+  warps_executed : UInt32
   acmr : Float
   atvr : Float
 } derive(Debug, Eq)
 
 ///|
 pub struct VertexFetchStatistics {
-  bytes_fetched : UInt
+  bytes_fetched : UInt32
   overfetch : Float
 } derive(Debug, Eq)
 
 ///|
 pub struct OverdrawStatistics {
-  pixels_covered : UInt
-  pixels_shaded : UInt
+  pixels_covered : UInt32
+  pixels_shaded : UInt32
   overdraw : Float
 } derive(Debug, Eq)
 
@@ -30,42 +30,42 @@ pub struct CoverageStatistics {
 ///|
 pub struct MeshoptData {
   data : Bytes
-  length : Int
+  length : Int32
 } derive(Debug, Eq)
 
 ///|
 pub struct VertexFetchOptimization {
   vertices : Bytes
-  indices : FixedArray[UInt]
-  unique_vertex_count : Int
+  indices : FixedArray[UInt32]
+  unique_vertex_count : Int32
 } derive(Debug, Eq)
 
 ///|
 pub struct ProvokingIndexBuffer {
-  indices : FixedArray[UInt]
-  reorder : FixedArray[UInt]
-  reorder_count : Int
+  indices : FixedArray[UInt32]
+  reorder : FixedArray[UInt32]
+  reorder_count : Int32
 } derive(Debug, Eq)
 
 ///|
 pub struct SimplifyResult {
-  indices : FixedArray[UInt]
-  index_count : Int
+  indices : FixedArray[UInt32]
+  index_count : Int32
   error : Float
 } derive(Debug, Eq)
 
 ///|
 pub struct MeshletBuild {
-  meshlets : FixedArray[UInt]
-  vertices : FixedArray[UInt]
+  meshlets : FixedArray[UInt32]
+  vertices : FixedArray[UInt32]
   triangles : Bytes
-  meshlet_count : Int
+  meshlet_count : Int32
 } derive(Debug, Eq)
 
 ///|
 pub struct MeshletDecodeRaw {
-  vertices : FixedArray[UInt]
-  triangles : FixedArray[UInt]
+  vertices : FixedArray[UInt32]
+  triangles : FixedArray[UInt32]
 } derive(Debug, Eq)
 
 ///|
@@ -77,9 +77,9 @@ pub struct MeshletDecode {
 ///|
 pub struct OpacityMapMeasure {
   levels : Bytes
-  sources : FixedArray[UInt]
-  omm_indices : FixedArray[Int]
-  count : Int
+  sources : FixedArray[UInt32]
+  omm_indices : FixedArray[Int32]
+  count : Int32
 } derive(Debug, Eq)
 
 ///|
@@ -95,10 +95,10 @@ pub struct Bounds {
   cone_axis_y : Float
   cone_axis_z : Float
   cone_cutoff : Float
-  cone_axis_s8_x : Int
-  cone_axis_s8_y : Int
-  cone_axis_s8_z : Int
-  cone_cutoff_s8 : Int
+  cone_axis_s8_x : Int32
+  cone_axis_s8_y : Int32
+  cone_axis_s8_z : Int32
+  cone_cutoff_s8 : Int32
 } derive(Debug, Eq)
 
 ///|
@@ -118,7 +118,7 @@ fn init {
 }
 
 ///|
-fn EncodeExpMode::to_int(self : EncodeExpMode) -> Int {
+fn EncodeExpMode::to_int(self : EncodeExpMode) -> Int32 {
   match self {
     Separate => 0
     SharedVector => 1
@@ -128,17 +128,17 @@ fn EncodeExpMode::to_int(self : EncodeExpMode) -> Int {
 }
 
 ///|
-pub struct SimplifyOptions(UInt) derive(Debug, Eq)
+pub struct SimplifyOptions(UInt32) derive(Debug, Eq)
 
 ///|
 pub fn SimplifyOptions::new(
-  lock_border? : Bool = false,
-  sparse? : Bool = false,
-  error_absolute? : Bool = false,
-  prune? : Bool = false,
-  regularize? : Bool = false,
-  permissive? : Bool = false,
-  regularize_light? : Bool = false,
+  lock_border~ : Bool = false,
+  sparse~ : Bool = false,
+  error_absolute~ : Bool = false,
+  prune~ : Bool = false,
+  regularize~ : Bool = false,
+  permissive~ : Bool = false,
+  regularize_light~ : Bool = false,
 ) -> SimplifyOptions {
   let mut flags = 0U
   if lock_border {
@@ -166,7 +166,7 @@ pub fn SimplifyOptions::new(
 }
 
 ///|
-pub fn SimplifyOptions::bits(self : SimplifyOptions) -> UInt {
+pub fn SimplifyOptions::bits(self : SimplifyOptions) -> UInt32 {
   self.0
 }
 
@@ -175,9 +175,9 @@ pub struct VertexLockFlags(Byte) derive(Debug, Eq)
 
 ///|
 pub fn VertexLockFlags::new(
-  lock? : Bool = false,
-  protect? : Bool = false,
-  priority? : Bool = false,
+  lock~ : Bool = false,
+  protect~ : Bool = false,
+  priority~ : Bool = false,
 ) -> VertexLockFlags {
   let mut flags = 0
   if lock {
@@ -198,12 +198,12 @@ pub fn VertexLockFlags::byte(self : VertexLockFlags) -> Byte {
 }
 
 ///|
-pub struct TangentOptions(UInt) derive(Debug, Eq)
+pub struct TangentOptions(UInt32) derive(Debug, Eq)
 
 ///|
 pub fn TangentOptions::new(
-  compatible? : Bool = false,
-  zero_fallback? : Bool = false,
+  compatible~ : Bool = false,
+  zero_fallback~ : Bool = false,
 ) -> TangentOptions {
   let mut flags = 0U
   if compatible {
@@ -216,26 +216,26 @@ pub fn TangentOptions::new(
 }
 
 ///|
-pub fn TangentOptions::bits(self : TangentOptions) -> UInt {
+pub fn TangentOptions::bits(self : TangentOptions) -> UInt32 {
   self.0
 }
 
 ///|
 pub struct PackedStreams {
   source : Bytes
-  offsets : FixedArray[Int]
-  sizes : FixedArray[Int]
-  strides : FixedArray[Int]
-  stream_count : Int
+  offsets : FixedArray[Int32]
+  sizes : FixedArray[Int32]
+  strides : FixedArray[Int32]
+  stream_count : Int32
 } derive(Debug, Eq)
 
 ///|
 pub fn PackedStreams::new(
   source : Bytes,
-  offsets : FixedArray[Int],
-  sizes : FixedArray[Int],
-  strides : FixedArray[Int],
-  stream_count : Int,
+  offsets : FixedArray[Int32],
+  sizes : FixedArray[Int32],
+  strides : FixedArray[Int32],
+  stream_count : Int32,
 ) -> PackedStreams {
   { source, offsets, sizes, strides, stream_count, }
 }

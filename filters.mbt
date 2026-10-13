@@ -1,10 +1,13 @@
 ///|
-fn require_filter_bits(bits : Int) -> Unit raise MeshoptError {
+fn require_filter_bits(bits : Int32) -> Unit raise MeshoptError {
   require(bits == 8 || bits == 16, "filter bit count must be 8 or 16")
 }
 
 ///|
-fn require_filter_output(count : Int, stride : Int) -> Unit raise MeshoptError {
+fn require_filter_output(
+  count : Int32,
+  stride : Int32,
+) -> Unit raise MeshoptError {
   require(count >= 0, "filter count must be non-negative")
   require(stride == 4 || stride == 8, "filter stride must be 4 or 8 bytes")
 }
@@ -12,9 +15,9 @@ fn require_filter_output(count : Int, stride : Int) -> Unit raise MeshoptError {
 ///|
 pub fn encode_filter_oct(
   data : FixedArray[Float],
-  count : Int,
-  stride : Int,
-  bits : Int,
+  count : Int32,
+  stride : Int32,
+  bits : Int32,
 ) -> Bytes raise MeshoptError {
   require_filter_output(count, stride)
   require_filter_bits(bits)
@@ -27,9 +30,9 @@ pub fn encode_filter_oct(
 ///|
 pub fn encode_filter_quat(
   data : FixedArray[Float],
-  count : Int,
-  stride : Int,
-  bits : Int,
+  count : Int32,
+  stride : Int32,
+  bits : Int32,
 ) -> Bytes raise MeshoptError {
   require_filter_output(count, stride)
   require_filter_bits(bits)
@@ -42,10 +45,10 @@ pub fn encode_filter_quat(
 ///|
 pub fn encode_filter_exp(
   data : FixedArray[Float],
-  count : Int,
-  stride : Int,
-  bits : Int,
-  mode? : EncodeExpMode = Separate,
+  count : Int32,
+  stride : Int32,
+  bits : Int32,
+  mode~ : EncodeExpMode = Separate,
 ) -> Bytes raise MeshoptError {
   require_filter_output(count, stride)
   require_filter_bits(bits)
@@ -58,9 +61,9 @@ pub fn encode_filter_exp(
 ///|
 pub fn encode_filter_color(
   data : FixedArray[Float],
-  count : Int,
-  stride : Int,
-  bits : Int,
+  count : Int32,
+  stride : Int32,
+  bits : Int32,
 ) -> Bytes raise MeshoptError {
   require_filter_output(count, stride)
   require_filter_bits(bits)
@@ -73,8 +76,8 @@ pub fn encode_filter_color(
 ///|
 pub fn decode_filter_oct(
   buffer : Bytes,
-  count : Int,
-  stride : Int,
+  count : Int32,
+  stride : Int32,
 ) -> Bytes raise MeshoptError {
   require_filter_output(count, stride)
   require_bytes_length(buffer, count * stride, "oct filter buffer")
@@ -86,8 +89,8 @@ pub fn decode_filter_oct(
 ///|
 pub fn decode_filter_quat(
   buffer : Bytes,
-  count : Int,
-  stride : Int,
+  count : Int32,
+  stride : Int32,
 ) -> Bytes raise MeshoptError {
   require_filter_output(count, stride)
   require_bytes_length(buffer, count * stride, "quat filter buffer")
@@ -99,8 +102,8 @@ pub fn decode_filter_quat(
 ///|
 pub fn decode_filter_exp(
   buffer : Bytes,
-  count : Int,
-  stride : Int,
+  count : Int32,
+  stride : Int32,
 ) -> Bytes raise MeshoptError {
   require_filter_output(count, stride)
   require_bytes_length(buffer, count * stride, "exp filter buffer")
@@ -112,8 +115,8 @@ pub fn decode_filter_exp(
 ///|
 pub fn decode_filter_color(
   buffer : Bytes,
-  count : Int,
-  stride : Int,
+  count : Int32,
+  stride : Int32,
 ) -> Bytes raise MeshoptError {
   require_filter_output(count, stride)
   require_bytes_length(buffer, count * stride, "color filter buffer")

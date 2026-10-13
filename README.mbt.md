@@ -26,7 +26,7 @@ The package targets MoonBit's native backend.
 ```mbt check
 ///|
 test {
-  let indices : FixedArray[UInt] = [0U, 1U, 2U, 2U, 1U, 3U]
+  let indices : FixedArray[UInt32] = [0U, 1U, 2U, 2U, 1U, 3U]
   let encoded = try! @meshopt_mbt.encode_index_buffer(indices, 4)
   let decoded = try! @meshopt_mbt.decode_index_buffer(
     encoded.data,
@@ -66,7 +66,7 @@ test {
 ```mbt check
 ///|
 test {
-  let indices : FixedArray[UInt] = [0U, 1U, 2U, 2U, 1U, 3U]
+  let indices : FixedArray[UInt32] = [0U, 1U, 2U, 2U, 1U, 3U]
   let optimized = try! @meshopt_mbt.optimize_vertex_cache(indices, 4)
   assert_eq(optimized.length(), indices.length())
 
@@ -81,7 +81,7 @@ test {
 ```mbt check
 ///|
 test {
-  let indices : FixedArray[UInt] = [0U, 1U, 2U, 2U, 1U, 3U]
+  let indices : FixedArray[UInt32] = [0U, 1U, 2U, 2U, 1U, 3U]
   let positions : FixedArray[Float] = [
     0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F,
   ]

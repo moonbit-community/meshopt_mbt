@@ -1,8 +1,8 @@
 ///|
 pub fn optimize_vertex_cache(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_triangle_indices(indices.length())
   require(vertex_count >= 0, "vertex count must be non-negative")
   let destination = FixedArray::make(indices.length(), 0U)
@@ -17,9 +17,9 @@ pub fn optimize_vertex_cache(
 
 ///|
 pub fn optimize_vertex_cache_strip(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_triangle_indices(indices.length())
   require(vertex_count >= 0, "vertex count must be non-negative")
   let destination = FixedArray::make(indices.length(), 0U)
@@ -34,10 +34,10 @@ pub fn optimize_vertex_cache_strip(
 
 ///|
 pub fn optimize_vertex_cache_fifo(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
-  cache_size? : UInt = 16U,
-) -> FixedArray[UInt] raise MeshoptError {
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
+  cache_size~ : UInt32 = 16U,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_triangle_indices(indices.length())
   require(vertex_count >= 0, "vertex count must be non-negative")
   let destination = FixedArray::make(indices.length(), 0U)
@@ -53,9 +53,9 @@ pub fn optimize_vertex_cache_fifo(
 
 ///|
 pub fn optimize_vertex_fetch_remap(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   let remap = FixedArray::make(vertex_count, 0U)
   let unique_vertex_count = optimize_vertex_fetch_remap_ffi(
@@ -69,12 +69,12 @@ pub fn optimize_vertex_fetch_remap(
 
 ///|
 pub fn optimize_overdraw(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  threshold? : Float = 1.05F,
-) -> FixedArray[UInt] raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+  threshold~ : Float = 1.05F,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
@@ -94,10 +94,10 @@ pub fn optimize_overdraw(
 
 ///|
 pub fn optimize_vertex_fetch(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   vertices : Bytes,
-  vertex_count : Int,
-  vertex_size : Int,
+  vertex_count : Int32,
+  vertex_size : Int32,
 ) -> VertexFetchOptimization raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(vertex_size > 0, "vertex size must be positive")

@@ -11,7 +11,7 @@ fn require(condition : Bool, message : String) -> Unit raise MeshoptError {
 }
 
 ///|
-fn require_triangle_indices(index_count : Int) -> Unit raise MeshoptError {
+fn require_triangle_indices(index_count : Int32) -> Unit raise MeshoptError {
   require(index_count >= 0, "index count must be non-negative")
   require(index_count % 3 == 0, "index count must be divisible by 3")
 }
@@ -19,7 +19,7 @@ fn require_triangle_indices(index_count : Int) -> Unit raise MeshoptError {
 ///|
 fn[T] require_fixedarray_length(
   values : FixedArray[T],
-  expected : Int,
+  expected : Int32,
   label : String,
 ) -> Unit raise MeshoptError {
   require(
@@ -31,7 +31,7 @@ fn[T] require_fixedarray_length(
 ///|
 fn require_bytes_length(
   bytes : Bytes,
-  expected : Int,
+  expected : Int32,
   label : String,
 ) -> Unit raise MeshoptError {
   require(
@@ -43,9 +43,9 @@ fn require_bytes_length(
 ///|
 fn require_float_stream(
   values : FixedArray[Float],
-  count : Int,
-  stride : Int,
-  minimum_stride : Int,
+  count : Int32,
+  stride : Int32,
+  minimum_stride : Int32,
   label : String,
 ) -> Unit raise MeshoptError {
   require(count >= 0, "\{label} count must be non-negative")

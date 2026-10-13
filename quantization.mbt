@@ -1,27 +1,27 @@
 ///|
-pub fn quantize_half(value : Float) -> UInt {
+pub fn quantize_half(value : Float) -> UInt32 {
   quantize_half_ffi(value)
 }
 
 ///|
-pub fn dequantize_half(value : UInt) -> Float {
+pub fn dequantize_half(value : UInt32) -> Float {
   dequantize_half_ffi(value)
 }
 
 ///|
-pub fn quantize_unorm(value : Float, bits : Int) -> Int raise MeshoptError {
+pub fn quantize_unorm(value : Float, bits : Int32) -> Int32 raise MeshoptError {
   require(bits >= 1 && bits <= 30, "UNORM bit count must be in 1..=30")
   quantize_unorm_ffi(value, bits)
 }
 
 ///|
-pub fn quantize_snorm(value : Float, bits : Int) -> Int raise MeshoptError {
+pub fn quantize_snorm(value : Float, bits : Int32) -> Int32 raise MeshoptError {
   require(bits >= 1 && bits <= 30, "SNORM bit count must be in 1..=30")
   quantize_snorm_ffi(value, bits)
 }
 
 ///|
-pub fn quantize_float(value : Float, bits : Int) -> Float raise MeshoptError {
+pub fn quantize_float(value : Float, bits : Int32) -> Float raise MeshoptError {
   require(bits >= 1 && bits <= 23, "float mantissa bit count must be in 1..=23")
   quantize_float_ffi(value, bits)
 }

@@ -1,9 +1,9 @@
 ///|
 pub fn generate_vertex_remap_unindexed(
   vertices : Bytes,
-  vertex_count : Int,
-  vertex_size : Int,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+  vertex_count : Int32,
+  vertex_size : Int32,
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(vertex_size > 0, "vertex size must be positive")
   require_bytes_length(vertices, vertex_count * vertex_size, "vertices")
@@ -16,11 +16,11 @@ pub fn generate_vertex_remap_unindexed(
 
 ///|
 pub fn generate_vertex_remap_indexed(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   vertices : Bytes,
-  vertex_count : Int,
-  vertex_size : Int,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+  vertex_count : Int32,
+  vertex_size : Int32,
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(vertex_size > 0, "vertex size must be positive")
   require_bytes_length(vertices, vertex_count * vertex_size, "vertices")
@@ -39,10 +39,10 @@ pub fn generate_vertex_remap_indexed(
 ///|
 pub fn remap_vertex_buffer(
   vertices : Bytes,
-  vertex_count : Int,
-  vertex_size : Int,
-  unique_vertex_count : Int,
-  remap : FixedArray[UInt],
+  vertex_count : Int32,
+  vertex_size : Int32,
+  unique_vertex_count : Int32,
+  remap : FixedArray[UInt32],
 ) -> Bytes raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(unique_vertex_count >= 0, "unique vertex count must be non-negative")
@@ -58,9 +58,9 @@ pub fn remap_vertex_buffer(
 
 ///|
 pub fn remap_index_buffer_unindexed(
-  index_count : Int,
-  remap : FixedArray[UInt],
-) -> FixedArray[UInt] raise MeshoptError {
+  index_count : Int32,
+  remap : FixedArray[UInt32],
+) -> FixedArray[UInt32] raise MeshoptError {
   require(index_count >= 0, "index count must be non-negative")
   require_fixedarray_length(remap, index_count, "remap")
   let destination = FixedArray::make(index_count, 0U)
@@ -70,9 +70,9 @@ pub fn remap_index_buffer_unindexed(
 
 ///|
 pub fn remap_index_buffer_indexed(
-  indices : FixedArray[UInt],
-  remap : FixedArray[UInt],
-) -> FixedArray[UInt] raise MeshoptError {
+  indices : FixedArray[UInt32],
+  remap : FixedArray[UInt32],
+) -> FixedArray[UInt32] raise MeshoptError {
   let remap_length = remap.length().reinterpret_as_uint()
   for i in 0..<indices.length() {
     require(
@@ -87,12 +87,12 @@ pub fn remap_index_buffer_indexed(
 
 ///|
 pub fn generate_shadow_index_buffer(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   vertices : Bytes,
-  vertex_count : Int,
-  vertex_size : Int,
-  vertex_stride : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  vertex_count : Int32,
+  vertex_size : Int32,
+  vertex_stride : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(vertex_size > 0, "vertex size must be positive")
   require(
@@ -116,9 +116,9 @@ pub fn generate_shadow_index_buffer(
 ///|
 pub fn generate_position_remap(
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
   )
@@ -131,11 +131,11 @@ pub fn generate_position_remap(
 
 ///|
 pub fn generate_adjacency_index_buffer(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
@@ -154,11 +154,11 @@ pub fn generate_adjacency_index_buffer(
 
 ///|
 pub fn generate_tessellation_index_buffer(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
@@ -177,8 +177,8 @@ pub fn generate_tessellation_index_buffer(
 
 ///|
 pub fn generate_provoking_index_buffer(
-  indices : FixedArray[UInt],
-  vertex_count : Int,
+  indices : FixedArray[UInt32],
+  vertex_count : Int32,
 ) -> ProvokingIndexBuffer raise MeshoptError {
   require_triangle_indices(indices.length())
   require(vertex_count >= 0, "vertex count must be non-negative")
@@ -197,7 +197,7 @@ pub fn generate_provoking_index_buffer(
 ///|
 fn require_packed_streams(
   streams : PackedStreams,
-  vertex_count : Int,
+  vertex_count : Int32,
 ) -> Unit raise MeshoptError {
   require(vertex_count >= 0, "vertex count must be non-negative")
   require(
@@ -233,8 +233,8 @@ fn require_packed_streams(
 ///|
 pub fn generate_vertex_remap_multi_unindexed(
   streams : PackedStreams,
-  vertex_count : Int,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+  vertex_count : Int32,
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require_packed_streams(streams, vertex_count)
   let remap = FixedArray::make(vertex_count, 0U)
   let unique_vertex_count = generate_vertex_remap_multi_unindexed_ffi(
@@ -251,10 +251,10 @@ pub fn generate_vertex_remap_multi_unindexed(
 
 ///|
 pub fn generate_vertex_remap_multi_indexed(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   streams : PackedStreams,
-  vertex_count : Int,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+  vertex_count : Int32,
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require_packed_streams(streams, vertex_count)
   let remap = FixedArray::make(vertex_count, 0U)
   let unique_vertex_count = generate_vertex_remap_multi_indexed_ffi(
@@ -273,10 +273,10 @@ pub fn generate_vertex_remap_multi_indexed(
 
 ///|
 pub fn generate_shadow_index_buffer_multi(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   streams : PackedStreams,
-  vertex_count : Int,
-) -> FixedArray[UInt] raise MeshoptError {
+  vertex_count : Int32,
+) -> FixedArray[UInt32] raise MeshoptError {
   require_packed_streams(streams, vertex_count)
   let destination = FixedArray::make(indices.length(), 0U)
   generate_shadow_index_buffer_multi_ffi(
@@ -296,9 +296,9 @@ pub fn generate_shadow_index_buffer_multi(
 ///|
 pub fn generate_vertex_remap_custom_no_callback(
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
   )
@@ -311,12 +311,12 @@ pub fn generate_vertex_remap_custom_no_callback(
 
 ///|
 pub fn generate_vertex_remap_custom(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  callback : (UInt, UInt) -> Bool,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+  callback : (UInt32, UInt32) -> Bool,
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
   )

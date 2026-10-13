@@ -1,17 +1,17 @@
 ///|
-fn lock_length(vertex_lock : Bytes) -> Int {
+fn lock_length(vertex_lock : Bytes) -> Int32 {
   vertex_lock.length()
 }
 
 ///|
 pub fn simplify(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  target_index_count : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
+  target_index_count : Int32,
   target_error : Float,
-  options? : SimplifyOptions = SimplifyOptions::new(),
+  options~ : SimplifyOptions = SimplifyOptions::new(),
 ) -> SimplifyResult raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
@@ -37,18 +37,18 @@ pub fn simplify(
 
 ///|
 pub fn simplify_with_attributes(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
   attributes : FixedArray[Float],
-  attributes_stride : Int,
+  attributes_stride : Int32,
   weights : FixedArray[Float],
-  attribute_count : Int,
-  vertex_lock? : Bytes = Bytes::new(0),
-  target_index_count : Int,
+  attribute_count : Int32,
+  vertex_lock~ : Bytes = Bytes::new(0),
+  target_index_count : Int32,
   target_error : Float,
-  options? : SimplifyOptions = SimplifyOptions::new(),
+  options~ : SimplifyOptions = SimplifyOptions::new(),
 ) -> SimplifyResult raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
@@ -94,19 +94,19 @@ pub fn simplify_with_attributes(
 
 ///|
 pub fn simplify_with_update(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  attributes? : FixedArray[Float] = [],
-  attributes_stride? : Int = 0,
-  weights? : FixedArray[Float] = [],
-  attribute_count? : Int = 0,
-  vertex_lock? : Bytes = Bytes::new(0),
-  target_index_count : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
+  attributes~ : FixedArray[Float] = [],
+  attributes_stride~ : Int32 = 0,
+  weights~ : FixedArray[Float] = [],
+  attribute_count~ : Int32 = 0,
+  vertex_lock~ : Bytes = Bytes::new(0),
+  target_index_count : Int32,
   target_error : Float,
-  options? : SimplifyOptions = SimplifyOptions::new(),
-) -> (Int, Float) raise MeshoptError {
+  options~ : SimplifyOptions = SimplifyOptions::new(),
+) -> (Int32, Float) raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
@@ -142,7 +142,7 @@ pub fn simplify_with_update(
     require_bytes_length(vertex_lock, vertex_count, "vertex lock")
   }
   let result_error = FixedArray::make(1, 0.0F)
-  let int_params : FixedArray[Int] = [
+  let int_params : FixedArray[Int32] = [
     indices.length(),
     vertex_count,
     positions_stride,
@@ -167,12 +167,12 @@ pub fn simplify_with_update(
 
 ///|
 pub fn simplify_sloppy(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  vertex_lock? : Bytes = Bytes::new(0),
-  target_index_count : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
+  vertex_lock~ : Bytes = Bytes::new(0),
+  target_index_count : Int32,
   target_error : Float,
 ) -> SimplifyResult raise MeshoptError {
   require_triangle_indices(indices.length())
@@ -202,12 +202,12 @@ pub fn simplify_sloppy(
 
 ///|
 pub fn simplify_prune(
-  indices : FixedArray[UInt],
+  indices : FixedArray[UInt32],
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
   target_error : Float,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require_triangle_indices(indices.length())
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
@@ -228,13 +228,13 @@ pub fn simplify_prune(
 ///|
 pub fn simplify_points(
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
-  target_vertex_count : Int,
-  colors? : FixedArray[Float] = [],
-  colors_stride? : Int = 0,
-  color_weight? : Float = 1.0F,
-) -> (FixedArray[UInt], Int) raise MeshoptError {
+  vertex_count : Int32,
+  positions_stride : Int32,
+  target_vertex_count : Int32,
+  colors~ : FixedArray[Float] = [],
+  colors_stride~ : Int32 = 0,
+  color_weight~ : Float = 1.0F,
+) -> (FixedArray[UInt32], Int32) raise MeshoptError {
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",
   )
@@ -253,8 +253,8 @@ pub fn simplify_points(
 ///|
 pub fn simplify_scale(
   positions : FixedArray[Float],
-  vertex_count : Int,
-  positions_stride : Int,
+  vertex_count : Int32,
+  positions_stride : Int32,
 ) -> Float raise MeshoptError {
   require_float_stream(
     positions, vertex_count, positions_stride, 12, "positions",

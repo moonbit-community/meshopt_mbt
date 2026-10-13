@@ -34,7 +34,7 @@ test "unindexed vertex remap compacts duplicate byte vertices" {
 
 ///|
 test "index buffer codec round-trips u32 indices" {
-  let indices : FixedArray[UInt] = [0U, 1U, 2U, 2U, 1U, 3U]
+  let indices : FixedArray[UInt32] = [0U, 1U, 2U, 2U, 1U, 3U]
   let encoded = try! @meshopt_mbt.encode_index_buffer(indices, 4)
   assert_true(encoded.length > 0)
   assert_true(encoded.data.length() == encoded.length)
@@ -65,7 +65,7 @@ test "vertex buffer codec round-trips bytes" {
 
 ///|
 test "optimization and analysis expose stable validity properties" {
-  let indices : FixedArray[UInt] = [0U, 1U, 2U, 2U, 1U, 3U]
+  let indices : FixedArray[UInt32] = [0U, 1U, 2U, 2U, 1U, 3U]
   let optimized = try! @meshopt_mbt.optimize_vertex_cache(indices, 4)
   assert_eq(optimized.length(), indices.length())
   let (fetch_remap, unique_vertices) = try! @meshopt_mbt.optimize_vertex_fetch_remap(
@@ -84,7 +84,7 @@ test "optimization and analysis expose stable validity properties" {
 }
 
 ///|
-fn sample_indices() -> FixedArray[UInt] {
+fn sample_indices() -> FixedArray[UInt32] {
   [0U, 1U, 2U, 2U, 1U, 3U]
 }
 
@@ -208,7 +208,7 @@ test "simplification, meshlets, bounds, and tangents work on a small mesh" {
   assert_true(meshlet_bounds.radius >= 0.0F)
   let sphere = try! @meshopt_mbt.compute_sphere_bounds(positions, 4, 12)
   assert_true(sphere.radius >= 0.0F)
-  let meshlet_vertices : FixedArray[UInt] = [0U, 1U, 2U, 3U]
+  let meshlet_vertices : FixedArray[UInt32] = [0U, 1U, 2U, 3U]
   let meshlet_triangles = Bytes::makei(6, i => {
     match i {
       0 => b'\x00'
